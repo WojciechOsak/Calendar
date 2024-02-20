@@ -3,7 +3,7 @@ package com.voytec.calendar.utils
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 
-internal object Pallete {
+object Pallete {
     @Stable
     val LightGreen = Color(0xFF90EE90)
 

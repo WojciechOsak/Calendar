@@ -22,12 +22,14 @@ import kotlinx.datetime.toLocalDateTime
 
 @Composable
 fun CalendarView(
-    date: LocalDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+    date: LocalDate = Clock.System.now()
+        .toLocalDateTime(TimeZone.currentSystemDefault())
         .toLocalDate(),
     horizontalArrangement: Arrangement.Horizontal = Arrangement.SpaceEvenly,
     verticalArrangement: Arrangement.Vertical = Arrangement.SpaceEvenly,
     showPreviousMonthDays: Boolean = true,
     showNextMonthDays: Boolean = true,
+    showMonthLabel: Boolean = true,
     day: @Composable (date: LocalDate, isToday: Boolean, isForPreviousMonth: Boolean, isForNextMonth: Boolean) -> Unit = { dayNumber, isToday, isForPreviousMonth, isForNextMonth ->
         CalendarDay(
             dayNumber,
@@ -61,7 +63,9 @@ fun CalendarView(
         if (showNextMonthDays) calculateVisibleDaysOfNextMonth(date) else 0
     val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toLocalDate()
 
-    monthLabel(date.month, date.year)
+    if (showMonthLabel) {
+        monthLabel(date.month, date.year)
+    }
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(7),
@@ -79,8 +83,6 @@ fun CalendarView(
                 iteration >= weekDaysCount && iteration < weekDaysCount + previousMonthDays
             val nextMonthDay =
                 iteration >= weekDaysCount + previousMonthDays + daysInCurrentMonth
-            val currentMonthDay =
-                iteration > weekDaysCount + previousMonthDays && iteration <= weekDaysCount + previousMonthDays + daysInCurrentMonth
             var newDate = date.copy(day = 1)
 
             if (previousMonthDay) {
