@@ -1,6 +1,6 @@
 rootProject.name = "Calendar"
 include(":sample:composeApp")
-include(":lib")
+include(":calendar")
 
 pluginManagement {
     repositories {

@@ -59,11 +59,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.composeIcons.featherIcons)
-            implementation(libs.kotlinx.datetime)
-        }
-
-        commonTest.dependencies {
-            implementation(kotlin("test"))
+            api(libs.kotlinx.datetime)
         }
 
         androidMain.dependencies {

@@ -49,7 +49,7 @@ kotlin {
             implementation(libs.composeIcons.featherIcons)
             implementation(libs.kotlinx.datetime)
 
-            implementation(project(":lib"))
+            implementation(project(":calendar"))
         }
 
         commonTest.dependencies {
