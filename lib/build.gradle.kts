@@ -4,6 +4,18 @@ plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.compose)
     alias(libs.plugins.android.library)
+    id("maven-publish")
+}
+
+group = "io.github.wojciechosak"
+version = "0.0.1"
+
+publishing {
+    repositories {
+        maven {
+            //...
+        }
+    }
 }
 
 kotlin {
@@ -78,7 +90,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.voytec.calendar"
+    namespace = "com.wojciechosak.calendar"
     compileSdk = 34
 
     defaultConfig {
@@ -107,7 +119,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.voytec.calendar.desktopApp"
+            packageName = "com.wojciechosak.calendar.desktopApp"
             packageVersion = "1.0.0"
         }
     }
