@@ -1,4 +1,4 @@
-package com.voytec.calendar.view
+package io.wojciechosak.calendar.view
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

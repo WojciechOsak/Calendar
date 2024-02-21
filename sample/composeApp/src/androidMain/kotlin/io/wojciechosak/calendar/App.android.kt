@@ -1,9 +1,10 @@
-package com.voytec.calendar
+package io.wojciechosak.calendar
 
 import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import io.wojciechosak.calendar.calendar.App
 
 class AndroidApp : Application() {
     companion object {

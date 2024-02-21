@@ -1,4 +1,4 @@
-package com.voytec.calendar.view
+package io.wojciechosak.calendar.view
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.voytec.calendar.utils.Pallete
+import io.wojciechosak.calendar.utils.Pallete
 import kotlinx.datetime.LocalDate
 
 @Composable

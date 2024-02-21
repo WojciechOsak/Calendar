@@ -1,4 +1,4 @@
-package com.voytec.calendar.utils
+package io.wojciechosak.calendar.utils
 
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color

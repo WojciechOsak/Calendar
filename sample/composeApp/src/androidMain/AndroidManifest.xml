@@ -2,12 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:name=".AndroidApp"
+        android:name="io.wojciechosak.calendar.AndroidApp"
         android:icon="@android:drawable/ic_menu_compass"
         android:label="Calendar"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity
-            android:name=".AppActivity"
+            android:name="io.wojciechosak.calendar.AppActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:launchMode="singleInstance"
             android:windowSoftInputMode="adjustPan"

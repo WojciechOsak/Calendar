@@ -1,4 +1,4 @@
-package com.voytec.calendar
+package io.wojciechosak.calendar.calendar
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
@@ -25,9 +25,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.voytec.calendar.view.CalendarDay
-import com.voytec.calendar.view.CalendarView
-import com.voytec.calendar.view.HorizontalCalendarView
+import io.wojciechosak.calendar.view.CalendarDay
+import io.wojciechosak.calendar.view.CalendarView
+import io.wojciechosak.calendar.view.HorizontalCalendarView
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate

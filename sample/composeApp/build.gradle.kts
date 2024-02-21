@@ -80,14 +80,14 @@ kotlin {
 }
 
 android {
-    namespace = "com.voytec.calendar"
+    namespace = "io.wojciechosak.calendar"
     compileSdk = 34
 
     defaultConfig {
         minSdk = 24
         targetSdk = 34
 
-        applicationId = "com.voytec.calendar.androidApp"
+        applicationId = "io.wojciechosak.calendar.androidApp"
         versionCode = 1
         versionName = "1.0.0"
     }
@@ -114,7 +114,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.voytec.calendar.desktopApp"
+            packageName = "io.wojciechosak.calendar.desktopApp"
             packageVersion = "1.0.0"
         }
     }

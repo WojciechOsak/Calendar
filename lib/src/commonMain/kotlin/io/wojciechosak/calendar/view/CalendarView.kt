@@ -1,4 +1,4 @@
-package com.voytec.calendar.view
+package io.wojciechosak.calendar.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -8,9 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import com.voytec.calendar.utils.copy
-import com.voytec.calendar.utils.monthLength
-import com.voytec.calendar.utils.toLocalDate
+import io.wojciechosak.calendar.utils.copy
+import io.wojciechosak.calendar.utils.monthLength
+import io.wojciechosak.calendar.utils.toLocalDate
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek

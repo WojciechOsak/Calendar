@@ -1,4 +1,4 @@
-package com.voytec.calendar.utils
+package io.wojciechosak.calendar.utils
 
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
