@@ -17,6 +17,15 @@ Web sample:
 
 <img src="readme/websample.png" width="300">
 
+# Platforms:
+
+| Platform  | Supported |
+|-----------|-----------|
+| Android   | ✅         |
+| iOS       | ✅         |
+| Web(Wasm) | ✅         |
+| Desktop   | ✅         |
+
 # How to use:
 
 1. Import library from Maven Central repository:
@@ -71,6 +80,18 @@ HorizontalCalendarView { monthOffset ->
 <image src="readme/sample2.webp" width="400">
 
 4. You can style months name, day view or week label as you prefer, just pass them as composables to lib and it is done!
+5. You can also use WeekView: 
+
+```
+val today = LocalDate(1995, monthNumber = 7, dayOfMonth = 4)
+WeekView(
+    date = today,
+    minDate = LocalDate(1990, monthNumber = 1, dayOfMonth = 1),
+    maxDate = LocalDate(2050, monthNumber = 12, dayOfMonth = 31),
+)
+```
+
+![weekview.png](readme%2Fweekview.png)
 
 # Sample project:
 

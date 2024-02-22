@@ -29,8 +29,18 @@ fun CalendarView(
     verticalArrangement: Arrangement.Vertical = Arrangement.SpaceEvenly,
     showPreviousMonthDays: Boolean = true,
     showNextMonthDays: Boolean = true,
-    showMonthLabel: Boolean = true,
-    day: @Composable (date: LocalDate, isToday: Boolean, isForPreviousMonth: Boolean, isForNextMonth: Boolean) -> Unit = { dayNumber, isToday, isForPreviousMonth, isForNextMonth ->
+    showHeader: Boolean = true,
+    isToday: (LocalDate) -> Boolean = {
+        val today =
+            Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toLocalDate()
+        today == it
+    },
+    day: @Composable (
+        date: LocalDate,
+        isToday: Boolean,
+        isForPreviousMonth: Boolean,
+        isForNextMonth: Boolean
+    ) -> Unit = { dayNumber, isToday, isForPreviousMonth, isForNextMonth ->
         CalendarDay(
             dayNumber,
             isToday = isToday,
@@ -38,8 +48,8 @@ fun CalendarView(
             isForNextMonth = isForNextMonth
         )
     },
-    monthLabel: @Composable (month: Month, year: Int) -> Unit = { month, year ->
-        MonthLabel(month, year)
+    header: @Composable (month: Month, year: Int) -> Unit = { month, year ->
+        MonthHeader(month, year)
     },
     dayOfWeekLabel: @Composable (dayOfWeek: DayOfWeek) -> Unit = { dayOfWeek ->
         val day = when (dayOfWeek) {
@@ -63,8 +73,8 @@ fun CalendarView(
         if (showNextMonthDays) calculateVisibleDaysOfNextMonth(date) else 0
     val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toLocalDate()
 
-    if (showMonthLabel) {
-        monthLabel(date.month, date.year)
+    if (showHeader) {
+        header(date.month, date.year)
     }
 
     LazyVerticalGrid(
@@ -102,7 +112,7 @@ fun CalendarView(
             } else {
                 day(
                     newDate,
-                    newDate == today,
+                    isToday(newDate),
                     previousMonthDay,
                     nextMonthDay
                 )

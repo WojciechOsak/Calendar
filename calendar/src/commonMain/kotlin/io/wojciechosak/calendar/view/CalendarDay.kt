@@ -29,8 +29,8 @@ fun CalendarDay(
     interactionSource: MutableInteractionSource = MutableInteractionSource(),
     onClick: () -> Unit = {},
     modifier: Modifier = Modifier,
-    isForPreviousMonth: Boolean,
-    isForNextMonth: Boolean,
+    isForPreviousMonth: Boolean = false,
+    isForNextMonth: Boolean = false,
     secondRowText: String = "",
 ) {
     OutlinedButton(

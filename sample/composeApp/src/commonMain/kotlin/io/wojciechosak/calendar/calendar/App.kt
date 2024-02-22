@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import io.wojciechosak.calendar.view.CalendarDay
 import io.wojciechosak.calendar.view.CalendarView
 import io.wojciechosak.calendar.view.HorizontalCalendarView
+import io.wojciechosak.calendar.view.WeekView
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
@@ -39,6 +40,13 @@ import kotlin.random.Random
 @Composable
 internal fun App() {
     Column(modifier = Modifier.width(400.dp)) {
+
+        val today = LocalDate(1995, monthNumber = 7, dayOfMonth = 4)
+        WeekView(
+            date = today,
+            minDate = LocalDate(1990, monthNumber = 1, dayOfMonth = 1),
+            maxDate = LocalDate(2050, monthNumber = 12, dayOfMonth = 31),
+        )
 
         Spacer(Modifier.height(20.dp))
 
@@ -77,7 +85,7 @@ internal fun App() {
             showWeekdays = false,
             showPreviousMonthDays = false,
             showNextMonthDays = false,
-            showMonthLabel = false
+            showHeader = false
         )
     }
 }

@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.datetime.Month
 
 @Composable
-fun MonthLabel(month: Month, year: Int) {
+fun MonthHeader(month: Month, year: Int) {
     val months = listOf(
         "January",
         "February",
