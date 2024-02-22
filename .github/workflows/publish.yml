@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       versionName:
-        description: '0.0.1'
+        description: ''
         required: true
 
 jobs:
@@ -43,7 +43,7 @@ jobs:
 
       - name: Create and push tag
         run: |
-          git config --global user.email "shubhamsinghshubham777@gmail.com"
+          git config --global user.email "osakwojciech@gmail.com"
           git config --global user.name "$GITHUB_ACTOR"
 
           git tag -a $TAG -m "Release v$TAG"
