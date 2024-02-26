@@ -9,6 +9,7 @@ plugins {
 }
 
 mavenPublishing {
+  //  coordinates("io.github.wojciechosak", "calendar", "0.0.3")
     pom {
         name.set("KMP Calendar")
         description.set("Kotlin Compose Multiplatform UI library that simplifies usage of calendar views")
@@ -61,7 +62,7 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "ComposeApp"
-            isStatic = true
+            isStatic = false
         }
     }
 

@@ -6,16 +6,20 @@ calendar picker for any platform you want: Android, iOS, Desktop or even Web!
 
 Android sample:
 
-<img src="readme/sample1.png" width="300">
-<img src="readme/sample3.png" width="300">
+<img src="readme/sample1.png" width="200">
+<img src="readme/sample3.png" width="200">
+
+iOS sample:
+
+<img src="readme/sampleios.png" width="200">
 
 Desktop sample:
 
-<img src="readme/sampledesktop.png" width="300">
+<img src="readme/sampledesktop.png" width="200">
 
 Web sample:
 
-<img src="readme/websample.png" width="300">
+<img src="readme/websample.png" width="200">
 
 # Platforms:
 
@@ -34,7 +38,7 @@ Web sample:
 implementation("io.github.wojciechosak:calendar:0.0.1")
 ```
 
-2. Basic view is CalendarView: 
+2. Basic view is CalendarView:
 ```
     CalendarView(
         date = remember {
@@ -61,7 +65,7 @@ implementation("io.github.wojciechosak:calendar:0.0.1")
 ```
 
 With `day` we can control view of single cell of day. You can use CalendarDay composable as
-basic view. 
+basic view.
 
 3. For scrollable view you can use `HorizontalCalendarView`:
 
@@ -80,7 +84,7 @@ HorizontalCalendarView { monthOffset ->
 <image src="readme/sample2.webp" width="400">
 
 4. You can style months name, day view or week label as you prefer, just pass them as composables to lib and it is done!
-5. You can also use WeekView: 
+5. You can also use WeekView:
 
 ```
 val today = LocalDate(1995, monthNumber = 7, dayOfMonth = 4)
@@ -96,25 +100,31 @@ WeekView(
 # Sample project:
 
 ## Before running!
- - check your system with [KDoctor](https://github.com/Kotlin/kdoctor)
- - install JDK 17 on your machine
- - add `local.properties` file to the project root and set a path to Android SDK there
+- check your system with [KDoctor](https://github.com/Kotlin/kdoctor)
+- install JDK 17 on your machine
+- add `local.properties` file to the project root and set a path to Android SDK there
 
 ### Android
-To run the application on android device/emulator:  
- - open project in Android Studio and run imported android run configuration
+To run the application on android device/emulator:
+- open project in Android Studio and run imported android run configuration
 
 To build the application bundle:
- - run `./gradlew :sample:composeApp:assembleDebug`
- - find `.apk` file in `sample/composeApp/build/outputs/apk/debug/composeApp-debug.apk`
+- run `./gradlew :sample:composeApp:assembleDebug`
+- find `.apk` file in `sample/composeApp/build/outputs/apk/debug/composeApp-debug.apk`
 
 ### Desktop
 Run the desktop application: `./gradlew :sample:composeApp:run`
 
 ### iOS
 To run the application on iPhone device/simulator:
- - Open `iosApp/iosApp.xcproject` in Xcode and run standard configuration
- - Or use [Kotlin Multiplatform Mobile plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile) for Android Studio
+- Open `iosApp/iosApp.xcproject` in Xcode and run standard configuration
+- In XCode open Build Phases -> Run Script -> paste script:
+```
+    cd "$SRCROOT/../../"
+    ./gradlew :sample:composeApp:embedAndSignAppleFrameworkForXcode
+```
+And build the project.
+- After that you can use [Kotlin Multiplatform Mobile plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile) for Android Studio
 
 ### Browser
 Run the browser application: `./gradlew :sample:composeApp:jsBrowserDevelopmentRun`
