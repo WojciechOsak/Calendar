@@ -1,5 +1,7 @@
 # Compose Multiplatform Calendar
 
+[![Maven Central](https://img.shields.io/badge/dynamic/xml.svg?label=Maven%20Central&color=blue&url=https://repo1.maven.org/maven2/io/github/wojciechosak/calendar/maven-metadata.xml&query=(//metadata/versioning/versions/version)[not(contains(text(),%27-%27))][last()])](https://repo1.maven.org/maven2/io/github/wojciechosak/calendar/)
+
 Highly configurable Kotlin Multiplatform Compose library where you can easily draw
 calendar picker for any platform you want: Android, iOS, Desktop or even Web!
 
