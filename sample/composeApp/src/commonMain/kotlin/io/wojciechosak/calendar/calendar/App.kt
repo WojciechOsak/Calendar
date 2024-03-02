@@ -19,74 +19,77 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.wojciechosak.calendar.config.rememberCalendarState
+import io.wojciechosak.calendar.utils.today
 import io.wojciechosak.calendar.view.CalendarDay
 import io.wojciechosak.calendar.view.CalendarView
 import io.wojciechosak.calendar.view.HorizontalCalendarView
 import io.wojciechosak.calendar.view.WeekView
-import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
+import kotlinx.datetime.minus
 import kotlinx.datetime.plus
-import kotlinx.datetime.toLocalDateTime
 import kotlin.random.Random
 
 @Composable
 internal fun App() {
     Column(modifier = Modifier.width(400.dp).safeContentPadding()) {
 
-        val today = LocalDate(1995, monthNumber = 7, dayOfMonth = 4)
+        val today = LocalDate(2024, monthNumber = 2, dayOfMonth = 4)
         WeekView(
             date = today,
-            minDate = LocalDate(1990, monthNumber = 1, dayOfMonth = 1),
+            minDate = LocalDate(2023, monthNumber = 11, dayOfMonth = 23),
             maxDate = LocalDate(2050, monthNumber = 12, dayOfMonth = 31),
-        )
+        ) { state ->
+            CalendarDay(
+                state,
+                modifier = Modifier.width(58.dp),
+                onClick = { }
+            )
+        }
 
         Spacer(Modifier.height(20.dp))
 
         HorizontalCalendarView { monthOffset ->
             CalendarView(
-                date = remember {
-                    Clock.System.now()
-                        .toLocalDateTime(TimeZone.currentSystemDefault()).date
-                }
-                    .plus(monthOffset, DateTimeUnit.MONTH),
-                day = { date, isToday, isForPreviousMonth, isForNextMonth ->
+                day = { dayState ->
                     CalendarDay(
-                        date = date,
-                        isToday = isToday,
-                        isForPreviousMonth = isForPreviousMonth,
-                        isForNextMonth = isForNextMonth,
-                        onClick = { }
+                        state = dayState,
+                        onClick = { },
                     )
                 },
-                showWeekdays = true,
-                showPreviousMonthDays = true,
-                showNextMonthDays = true
+                state = rememberCalendarState(
+                    focusDate = LocalDate.today().plus(monthOffset, DateTimeUnit.MONTH),
+                    showWeekdays = true,
+                    showPreviousMonthDays = true,
+                    showNextMonthDays = true,
+                )
             )
         }
 
         Spacer(Modifier.height(30.dp))
 
         CalendarView(
-            date = LocalDate(dayOfMonth = 3, year = 1994, monthNumber = 4),
-            day = { date, isToday, isForPreviousMonth, isForNextMonth ->
+            day = { state ->
                 Sample2(
-                    date = date,
-                    isDotVisible = isToday || Random.nextBoolean()
+                    date = state.date,
+                    isDotVisible = state.isToday || Random.nextBoolean()
                 )
             },
-            showWeekdays = false,
-            showPreviousMonthDays = false,
-            showNextMonthDays = false,
-            showHeader = false
+            state = rememberCalendarState(
+                focusDate = LocalDate(dayOfMonth = 3, year = 1994, monthNumber = 4),
+                showWeekdays = false,
+                showPreviousMonthDays = false,
+                showNextMonthDays = false,
+                showHeader = false,
+            )
         )
     }
 }

@@ -1,8 +1,11 @@
 package io.wojciechosak.calendar.utils
 
+import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Month
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 fun isLeapYear(year: Int): Boolean {
     return try {
@@ -32,4 +35,10 @@ internal fun LocalDate.copy(
     day: Int = this.dayOfMonth
 ): LocalDate {
     return LocalDate(year, month, day)
+}
+
+fun LocalDate.Companion.today(): LocalDate {
+    return Clock.System.now()
+        .toLocalDateTime(TimeZone.currentSystemDefault())
+        .toLocalDate()
 }

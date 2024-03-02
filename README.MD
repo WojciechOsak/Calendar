@@ -18,10 +18,10 @@ Features:
 |    Horizontal calendar     |     ✅     |
 |      Customizable UI       |     ✅     |
 |      Headers support       |     ✅     |
+|      Calendar offsets      |     ✅     |
 |      Single selection      |     ❌     |
 |     Multiple selection     |     ❌     |
 |     Month/Year picker      |     ❌     |
-|     Multiple selection     |     ❌     |
 |  Scroll to date animation  |     ❌     |
 |     Vertical calendar      |     ❌     |
 |      Range selection       |     ❌     |

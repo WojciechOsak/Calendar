@@ -19,20 +19,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.wojciechosak.calendar.config.DayState
 import io.wojciechosak.calendar.utils.Pallete
-import kotlinx.datetime.LocalDate
 
 @Composable
 fun CalendarDay(
-    date: LocalDate,
-    isToday: Boolean,
+    state: DayState,
     interactionSource: MutableInteractionSource = MutableInteractionSource(),
     onClick: () -> Unit = {},
     modifier: Modifier = Modifier,
-    isForPreviousMonth: Boolean = false,
-    isForNextMonth: Boolean = false,
     secondRowText: String = "",
-) {
+) = with(state) {
     OutlinedButton(
         onClick = onClick,
         modifier = modifier.size(50.dp).padding(0.dp),
@@ -40,8 +37,14 @@ fun CalendarDay(
         border = BorderStroke(1.dp, Color.Transparent),
         contentPadding = PaddingValues(0.dp),
         interactionSource = interactionSource,
-        colors = ButtonDefaults.outlinedButtonColors(contentColor = if (isForPreviousMonth || isForNextMonth) Color.LightGray else
-            if(isToday) Pallete.LightGreen else Pallete.LightBlue),
+        enabled = isInDatesRange,
+        colors = ButtonDefaults.outlinedButtonColors(
+            contentColor = if (isForPreviousMonth || isForNextMonth) {
+                Color.LightGray
+            } else {
+                if (isToday) Pallete.LightGreen else Pallete.LightBlue
+            },
+        ),
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(

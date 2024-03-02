@@ -5,48 +5,30 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import io.wojciechosak.calendar.config.CalendarConfig
+import io.wojciechosak.calendar.config.DayState
+import io.wojciechosak.calendar.config.rememberCalendarState
 import io.wojciechosak.calendar.utils.copy
 import io.wojciechosak.calendar.utils.monthLength
-import io.wojciechosak.calendar.utils.toLocalDate
-import kotlinx.datetime.Clock
+import io.wojciechosak.calendar.utils.today
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
-import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
-import kotlinx.datetime.toLocalDateTime
 
 @Composable
 fun CalendarView(
-    date: LocalDate = Clock.System.now()
-        .toLocalDateTime(TimeZone.currentSystemDefault())
-        .toLocalDate(),
+    state: State<CalendarConfig> = rememberCalendarState(),
     horizontalArrangement: Arrangement.Horizontal = Arrangement.SpaceEvenly,
     verticalArrangement: Arrangement.Vertical = Arrangement.SpaceEvenly,
-    showPreviousMonthDays: Boolean = true,
-    showNextMonthDays: Boolean = true,
-    showHeader: Boolean = true,
-    isToday: (LocalDate) -> Boolean = {
-        val today =
-            Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toLocalDate()
-        today == it
-    },
-    day: @Composable (
-        date: LocalDate,
-        isToday: Boolean,
-        isForPreviousMonth: Boolean,
-        isForNextMonth: Boolean
-    ) -> Unit = { dayNumber, isToday, isForPreviousMonth, isForNextMonth ->
-        CalendarDay(
-            dayNumber,
-            isToday = isToday,
-            isForPreviousMonth = isForPreviousMonth,
-            isForNextMonth = isForNextMonth
-        )
+    isToday: (LocalDate) -> Boolean = { LocalDate.today() == it },
+    day: @Composable (DayState) -> Unit = { dayState ->
+        CalendarDay(dayState)
     },
     header: @Composable (month: Month, year: Int) -> Unit = { month, year ->
         MonthHeader(month, year)
@@ -64,16 +46,14 @@ fun CalendarView(
         }
         Text(day, fontSize = 12.sp, textAlign = TextAlign.Center)
     },
-    showWeekdays: Boolean = true,
     modifier: Modifier = Modifier
 ) {
+    val date = state.value.focusDate
     val daysInCurrentMonth = monthLength(date.month, year = date.year)
     val previousMonthDays = calculateVisibleDaysOfPreviousMonth(date)
     val nextMonthDays =
-        if (showNextMonthDays) calculateVisibleDaysOfNextMonth(date) else 0
-    val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toLocalDate()
-
-    if (showHeader) {
+        if (state.value.showNextMonthDays) calculateVisibleDaysOfNextMonth(date) else 0
+    if (state.value.showHeader) {
         header(date.month, date.year)
     }
 
@@ -85,16 +65,15 @@ fun CalendarView(
         modifier = modifier
     ) {
         var iteration = 0
-        val weekDaysCount = if (showWeekdays) 7 else 0
-
+        val state = state.value
+        val weekDaysCount = if (state.showWeekdays) 7 else 0
         items(previousMonthDays + daysInCurrentMonth + nextMonthDays + weekDaysCount) {
-            val isWeekdayLabel = showWeekdays && iteration < weekDaysCount
+            val isWeekdayLabel = state.showWeekdays && iteration < weekDaysCount
             val previousMonthDay =
                 iteration >= weekDaysCount && iteration < weekDaysCount + previousMonthDays
             val nextMonthDay =
                 iteration >= weekDaysCount + previousMonthDays + daysInCurrentMonth
             var newDate = date.copy(day = 1)
-
             if (previousMonthDay) {
                 newDate =
                     newDate.plus(iteration - weekDaysCount - previousMonthDays, DateTimeUnit.DAY)
@@ -104,17 +83,29 @@ fun CalendarView(
             } else if (!isWeekdayLabel) {
                 newDate = newDate.copy(day = iteration - previousMonthDays - weekDaysCount + 1)
             }
+            newDate = newDate.plus(state.dayOfWeekOffset, DateTimeUnit.DAY)
 
-            if (showWeekdays && iteration < 7) {
-                dayOfWeekLabel(DayOfWeek.entries[iteration])
-            } else if ((!showPreviousMonthDays && previousMonthDay) || (!showNextMonthDays && nextMonthDay)) {
+            if (state.showWeekdays && iteration + state.dayOfWeekOffset < 7 + state.dayOfWeekOffset) {
+                val dayOfWeekIndex =
+                    if (iteration + state.dayOfWeekOffset >= DayOfWeek.entries.size) {
+                        iteration + state.dayOfWeekOffset - DayOfWeek.entries.size
+                    } else if (iteration + state.dayOfWeekOffset < 0)
+                        DayOfWeek.entries.size + iteration + state.dayOfWeekOffset
+                    else {
+                        iteration + state.dayOfWeekOffset
+                    }
+                dayOfWeekLabel(DayOfWeek.entries[dayOfWeekIndex])
+            } else if ((!state.showPreviousMonthDays && previousMonthDay) || (!state.showNextMonthDays && nextMonthDay)) {
                 Text("")
             } else {
                 day(
-                    newDate,
-                    isToday(newDate),
-                    previousMonthDay,
-                    nextMonthDay
+                    DayState(
+                        date = newDate,
+                        isToday = isToday(newDate),
+                        isForPreviousMonth = previousMonthDay,
+                        isForNextMonth = nextMonthDay,
+                        isInDatesRange = newDate >= state.minDate && newDate <= state.maxDate
+                    )
                 )
             }
             iteration++

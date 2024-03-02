@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.wojciechosak.calendar.config.DayState
 import io.wojciechosak.calendar.utils.copy
 import io.wojciechosak.calendar.utils.monthLength
 import io.wojciechosak.calendar.utils.toLocalDate
@@ -37,11 +38,10 @@ fun WeekView(
             Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toLocalDate()
         today == it
     },
-    day: @Composable (date: LocalDate, isToday: Boolean) -> Unit = { date, isToday ->
-        weekDay(date, isToday) {
+    day: @Composable (dayState: DayState) -> Unit = { state ->
+        weekDay(state) {
             CalendarDay(
-                date,
-                isToday = isToday,
+                state,
                 modifier = Modifier.width(58.dp),
             )
         }
@@ -62,7 +62,7 @@ fun WeekView(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 val newDate = minDate.plus(index, DateTimeUnit.DAY)
-                day(newDate, isToday(newDate))
+                day(DayState(date = newDate, isToday = isToday(newDate), isInDatesRange = newDate in minDate..maxDate))
             }
         }
     }
@@ -70,11 +70,10 @@ fun WeekView(
 
 @Composable
 private fun weekDay(
-    newDate: LocalDate,
-    isToday: Boolean,
+    state: DayState,
     function: @Composable () -> Unit,
 ) {
-    val weekDay = when (newDate.dayOfWeek) {
+    val weekDay = when (state.date.dayOfWeek) {
         DayOfWeek.MONDAY -> "Mon"
         DayOfWeek.TUESDAY -> "Tue"
         DayOfWeek.WEDNESDAY -> "Wed"
