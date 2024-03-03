@@ -6,13 +6,17 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import io.wojciechosak.calendar.config.CalendarConfig
 import io.wojciechosak.calendar.config.DayState
+import io.wojciechosak.calendar.config.YearMonth
 import io.wojciechosak.calendar.config.rememberCalendarState
-import io.wojciechosak.calendar.utils.copy
 import io.wojciechosak.calendar.utils.monthLength
 import io.wojciechosak.calendar.utils.today
 import kotlinx.datetime.DateTimeUnit
@@ -23,10 +27,10 @@ import kotlinx.datetime.plus
 
 @Composable
 fun CalendarView(
-    state: State<CalendarConfig> = rememberCalendarState(),
+    config: State<CalendarConfig> = rememberCalendarState(),
     horizontalArrangement: Arrangement.Horizontal = Arrangement.SpaceEvenly,
     verticalArrangement: Arrangement.Vertical = Arrangement.SpaceEvenly,
-    isToday: (LocalDate) -> Boolean = { LocalDate.today() == it },
+    isActiveDay: (LocalDate) -> Boolean = { LocalDate.today() == it },
     day: @Composable (DayState) -> Unit = { dayState ->
         CalendarDay(dayState)
     },
@@ -48,13 +52,26 @@ fun CalendarView(
     },
     modifier: Modifier = Modifier
 ) {
-    val date = state.value.focusDate
-    val daysInCurrentMonth = monthLength(date.month, year = date.year)
-    val previousMonthDays = calculateVisibleDaysOfPreviousMonth(date)
-    val nextMonthDays =
-        if (state.value.showNextMonthDays) calculateVisibleDaysOfNextMonth(date) else 0
-    if (state.value.showHeader) {
-        header(date.month, date.year)
+    val yearMonth by remember { mutableStateOf(config.value.yearMonth) }
+    val daysInCurrentMonth by remember {
+        mutableStateOf(
+            monthLength(
+                year = yearMonth.year,
+                month = yearMonth.month
+            )
+        )
+    }
+    val previousMonthDays by remember { mutableStateOf(calculateVisibleDaysOfPreviousMonth(yearMonth)) }
+    val nextMonthDays by remember {
+        mutableStateOf(
+            if (config.value.showNextMonthDays) calculateVisibleDaysOfNextMonth(
+                yearMonth
+            ) else 0
+        )
+    }
+
+    if (config.value.showHeader) {
+        header(yearMonth.month, yearMonth.year)
     }
 
     LazyVerticalGrid(
@@ -64,24 +81,29 @@ fun CalendarView(
         userScrollEnabled = false,
         modifier = modifier
     ) {
-        var iteration = 0
-        val state = state.value
+        val state = config.value
         val weekDaysCount = if (state.showWeekdays) 7 else 0
-        items(previousMonthDays + daysInCurrentMonth + nextMonthDays + weekDaysCount) {
+        items(previousMonthDays + daysInCurrentMonth + nextMonthDays + weekDaysCount) { iteration ->
             val isWeekdayLabel = state.showWeekdays && iteration < weekDaysCount
             val previousMonthDay =
                 iteration >= weekDaysCount && iteration < weekDaysCount + previousMonthDays
             val nextMonthDay =
                 iteration >= weekDaysCount + previousMonthDays + daysInCurrentMonth
-            var newDate = date.copy(day = 1)
-            if (previousMonthDay) {
+            var newDate = LocalDate(year = yearMonth.year, month = yearMonth.month, dayOfMonth = 1)
+
+            if (previousMonthDay && config.value.showPreviousMonthDays) {
                 newDate =
                     newDate.plus(iteration - weekDaysCount - previousMonthDays, DateTimeUnit.DAY)
-            } else if (nextMonthDay) {
-                newDate = newDate.plus(1, DateTimeUnit.MONTH)
-                    .copy(day = it - previousMonthDays - weekDaysCount - daysInCurrentMonth + 1)
+            } else if (nextMonthDay && config.value.showNextMonthDays) {
+                newDate = newDate
+                    .plus(1, DateTimeUnit.MONTH)
+                    .plus(
+                        iteration - previousMonthDays - weekDaysCount - daysInCurrentMonth,
+                        DateTimeUnit.DAY
+                    )
             } else if (!isWeekdayLabel) {
-                newDate = newDate.copy(day = iteration - previousMonthDays - weekDaysCount + 1)
+                newDate =
+                    newDate.plus(iteration - previousMonthDays - weekDaysCount, DateTimeUnit.DAY)
             }
             newDate = newDate.plus(state.dayOfWeekOffset, DateTimeUnit.DAY)
 
@@ -101,25 +123,25 @@ fun CalendarView(
                 day(
                     DayState(
                         date = newDate,
-                        isToday = isToday(newDate),
+                        isActiveDay = isActiveDay(newDate),
                         isForPreviousMonth = previousMonthDay,
                         isForNextMonth = nextMonthDay,
-                        isInDatesRange = newDate >= state.minDate && newDate <= state.maxDate
+                        enabled = newDate >= state.minDate && newDate <= state.maxDate
                     )
                 )
             }
-            iteration++
         }
     }
 }
 
-private fun calculateVisibleDaysOfPreviousMonth(dateTime: LocalDate): Int {
-    val firstDayOfMonth = dateTime.copy(day = 1)
-    return firstDayOfMonth.dayOfWeek.ordinal
+private fun calculateVisibleDaysOfPreviousMonth(yearMonth: YearMonth): Int {
+    val (year, month) = yearMonth
+    return LocalDate(year = year, month = month, dayOfMonth = 1).dayOfWeek.ordinal
 }
 
-private fun calculateVisibleDaysOfNextMonth(dateTime: LocalDate): Int {
-    val daysInMonth = monthLength(dateTime.month, dateTime.year)
-    val lastMonthDay = dateTime.copy(day = daysInMonth)
+private fun calculateVisibleDaysOfNextMonth(yearMonth: YearMonth): Int {
+    val (year, month) = yearMonth
+    val daysInMonth = monthLength(month, year)
+    val lastMonthDay = LocalDate(year = year, month = month, dayOfMonth = daysInMonth)
     return 6 - lastMonthDay.dayOfWeek.ordinal
 }

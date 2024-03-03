@@ -49,6 +49,11 @@ kotlin {
             implementation(libs.composeIcons.featherIcons)
             implementation(libs.kotlinx.datetime)
 
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.bottomSheetNavigator)
+            implementation(libs.voyager.screenModel)
+            implementation(libs.voyager.transitions)
+
             implementation(project(":calendar"))
         }
 

@@ -4,8 +4,8 @@ import kotlinx.datetime.LocalDate
 
 data class DayState(
     val date: LocalDate,
-    val isToday: Boolean = false,
+    val isActiveDay: Boolean = false,
     val isForPreviousMonth: Boolean = false,
     val isForNextMonth: Boolean = false,
-    val isInDatesRange: Boolean = true,
+    val enabled: Boolean = true,
 )

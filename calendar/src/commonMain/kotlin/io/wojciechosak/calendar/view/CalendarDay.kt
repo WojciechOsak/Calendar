@@ -37,12 +37,12 @@ fun CalendarDay(
         border = BorderStroke(1.dp, Color.Transparent),
         contentPadding = PaddingValues(0.dp),
         interactionSource = interactionSource,
-        enabled = isInDatesRange,
+        enabled = enabled,
         colors = ButtonDefaults.outlinedButtonColors(
             contentColor = if (isForPreviousMonth || isForNextMonth) {
                 Color.LightGray
             } else {
-                if (isToday) Pallete.LightGreen else Pallete.LightBlue
+                if (isActiveDay) Pallete.LightGreen else Pallete.LightBlue
             },
         ),
     ) {
@@ -59,7 +59,7 @@ fun CalendarDay(
                     color = Color.Gray,
                     fontSize = 10.sp,
                     modifier = Modifier.fillMaxWidth()
-                        .background(if (isToday) Pallete.LightGreen else Color(0xefefef)),
+                        .background(if (isActiveDay) Pallete.LightGreen else Color(0xefefef)),
                     textAlign = TextAlign.Center
                 )
             }

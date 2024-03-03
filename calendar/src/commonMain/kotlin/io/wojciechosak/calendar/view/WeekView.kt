@@ -22,6 +22,7 @@ import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.daysUntil
+import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
 
@@ -30,10 +31,10 @@ fun WeekView(
     date: LocalDate = Clock.System.now()
         .toLocalDateTime(TimeZone.currentSystemDefault())
         .toLocalDate(),
-    minDate: LocalDate = date.copy(day = 1),
-    maxDate: LocalDate = date.copy(day = monthLength(date.month, date.year)),
+    minDate: LocalDate = date.copy(day = 1).minus(1, DateTimeUnit.MONTH),
+    maxDate: LocalDate = date.copy(day = monthLength(date.month, date.year)).plus(1, DateTimeUnit.MONTH),
     minimumDaysVisible: Int = 7,
-    isToday: (LocalDate) -> Boolean = {
+    isActive: (LocalDate) -> Boolean = {
         val today =
             Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toLocalDate()
         today == it
@@ -62,7 +63,7 @@ fun WeekView(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 val newDate = minDate.plus(index, DateTimeUnit.DAY)
-                day(DayState(date = newDate, isToday = isToday(newDate), isInDatesRange = newDate in minDate..maxDate))
+                day(DayState(date = newDate, isActiveDay = isActive(newDate), enabled = newDate in minDate..maxDate))
             }
         }
     }

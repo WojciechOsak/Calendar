@@ -19,12 +19,12 @@ Features:
 |      Customizable UI       |     ✅     |
 |      Headers support       |     ✅     |
 |      Calendar offsets      |     ✅     |
-|      Single selection      |     ❌     |
-|     Multiple selection     |     ❌     |
-|     Month/Year picker      |     ❌     |
-|  Scroll to date animation  |     ❌     |
-|     Vertical calendar      |     ❌     |
-|      Range selection       |     ❌     |
+|      Single selection      |     ✅     |
+|     Multiple selection     |     ✅     |
+|     Month/Year picker      |    🔜     |
+|  Scroll to date animation  |    🔜     |
+|     Vertical calendar      |    🔜     |
+|      Range selection       |    🔜     |
 
 ---
 
