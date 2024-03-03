@@ -30,7 +30,6 @@ import kotlinx.datetime.Month
 import kotlin.random.Random
 
 class CalendarViewScreen : Screen {
-
     @Composable
     override fun Content() {
         var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
@@ -40,19 +39,20 @@ class CalendarViewScreen : Screen {
                 DayView(
                     date = state.date,
                     isDotVisible = state.isActiveDay || Random.nextBoolean(),
-                    onClick = { selectedDate = state.date }
+                    onClick = { selectedDate = state.date },
                 )
             },
             isActiveDay = {
                 it == selectedDate
             },
-            config = rememberCalendarState(
-                yearMonth = YearMonth(year = 1994, month = Month.APRIL),
-                showWeekdays = false,
-                showPreviousMonthDays = false,
-                showNextMonthDays = false,
-                showHeader = false,
-            )
+            config =
+                rememberCalendarState(
+                    yearMonth = YearMonth(year = 1994, month = Month.APRIL),
+                    showWeekdays = false,
+                    showPreviousMonthDays = false,
+                    showNextMonthDays = false,
+                    showHeader = false,
+                ),
         )
     }
 }
@@ -70,9 +70,10 @@ private fun DayView(
             modifier = modifier.aspectRatio(1f).padding(3.dp),
             contentPadding = PaddingValues(0.dp),
             border = BorderStroke(0.dp, Color.Transparent),
-            colors = ButtonDefaults.outlinedButtonColors(
-                containerColor = Color(0xffdaa92a),
-            ),
+            colors =
+                ButtonDefaults.outlinedButtonColors(
+                    containerColor = Color(0xffdaa92a),
+                ),
         ) {
             Text(
                 "${date.dayOfMonth}",
@@ -83,11 +84,13 @@ private fun DayView(
         }
         if (isDotVisible) {
             Canvas(
-                modifier = Modifier
-                    .padding(bottom = 10.dp)
-                    .size(8.dp)
-                    .align(Alignment.BottomCenter),
-                onDraw = { drawCircle(color = Color(0xff2d2cb2)) })
+                modifier =
+                    Modifier
+                        .padding(bottom = 10.dp)
+                        .size(8.dp)
+                        .align(Alignment.BottomCenter),
+                onDraw = { drawCircle(color = Color(0xff2d2cb2)) },
+            )
         }
     }
 }

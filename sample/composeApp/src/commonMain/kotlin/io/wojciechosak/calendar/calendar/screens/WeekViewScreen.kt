@@ -37,7 +37,7 @@ class WeekViewScreen : Screen {
                 CalendarDay(
                     state,
                     modifier = Modifier.width(58.dp),
-                    onClick = { }
+                    onClick = { },
                 )
                 monthName = state.date.month.name
             }
@@ -50,7 +50,7 @@ class WeekViewScreen : Screen {
                 date = LocalDate.today(),
                 minDate = LocalDate.today().minus(9, DateTimeUnit.DAY),
                 maxDate = LocalDate.today().plus(9, DateTimeUnit.DAY),
-                isActive = { it == selectedDay }
+                isActive = { it == selectedDay },
             ) { state ->
                 val isInNextThreeDays =
                     state.date in LocalDate.today().plus(1, DateTimeUnit.DAY)..LocalDate.today()
@@ -60,7 +60,7 @@ class WeekViewScreen : Screen {
                     modifier = Modifier.width(58.dp),
                     onClick = {
                         selectedDay = state.date
-                    }
+                    },
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))

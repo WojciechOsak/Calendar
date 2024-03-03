@@ -12,5 +12,4 @@ object Pallete {
 
     @Stable
     val LightRed = Color(0xFFFF7F7F)
-
 }

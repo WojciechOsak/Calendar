@@ -17,7 +17,10 @@ fun isLeapYear(year: Int): Boolean {
     }
 }
 
-fun monthLength(month: Month, year: Int): Int {
+fun monthLength(
+    month: Month,
+    year: Int,
+): Int {
     val isLeapYear = isLeapYear(year)
     return when (month) {
         Month.FEBRUARY -> if (isLeapYear) 29 else 28
@@ -33,7 +36,7 @@ internal fun LocalDateTime.toLocalDate(): LocalDate {
 internal fun LocalDate.copy(
     year: Int = this.year,
     month: Month = this.month,
-    day: Int = this.dayOfMonth
+    day: Int = this.dayOfMonth,
 ): LocalDate {
     return LocalDate(year, month, day)
 }

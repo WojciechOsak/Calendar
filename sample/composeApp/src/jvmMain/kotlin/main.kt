@@ -5,13 +5,14 @@ import androidx.compose.ui.window.rememberWindowState
 import io.wojciechosak.calendar.calendar.App
 import java.awt.Dimension
 
-fun main() = application {
-    Window(
-        title = "Calendar",
-        state = rememberWindowState(width = 800.dp, height = 600.dp),
-        onCloseRequest = ::exitApplication,
-    ) {
-        window.minimumSize = Dimension(350, 600)
-        App()
+fun main() =
+    application {
+        Window(
+            title = "Calendar",
+            state = rememberWindowState(width = 800.dp, height = 600.dp),
+            onCloseRequest = ::exitApplication,
+        ) {
+            window.minimumSize = Dimension(350, 600)
+            App()
+        }
     }
-}

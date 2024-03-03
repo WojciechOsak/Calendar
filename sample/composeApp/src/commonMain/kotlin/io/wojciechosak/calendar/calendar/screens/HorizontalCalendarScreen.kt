@@ -37,15 +37,17 @@ class HorizontalCalendarScreen : Screen {
                             onClick = { },
                         )
                     },
-                    config = rememberCalendarState(
-                        yearMonth = LocalDate
-                            .today()
-                            .plus(monthOffset, DateTimeUnit.MONTH)
-                            .asYearMonth(),
-                        showWeekdays = true,
-                        showPreviousMonthDays = true,
-                        showNextMonthDays = true,
-                    )
+                    config =
+                        rememberCalendarState(
+                            yearMonth =
+                                LocalDate
+                                    .today()
+                                    .plus(monthOffset, DateTimeUnit.MONTH)
+                                    .asYearMonth(),
+                            showWeekdays = true,
+                            showPreviousMonthDays = true,
+                            showNextMonthDays = true,
+                        ),
                 )
             }
             HorizontalCalendarView { monthOffset ->
@@ -53,34 +55,33 @@ class HorizontalCalendarScreen : Screen {
                     day = { dayState ->
                         SquareDay(dayState.date)
                     },
-                    config = rememberCalendarState(
-                        yearMonth = LocalDate
-                            .today()
-                            .plus(monthOffset, DateTimeUnit.MONTH)
-                            .asYearMonth(),
-                        showWeekdays = true,
-                        showPreviousMonthDays = true,
-                        showNextMonthDays = true,
-                    )
+                    config =
+                        rememberCalendarState(
+                            yearMonth =
+                                LocalDate
+                                    .today()
+                                    .plus(monthOffset, DateTimeUnit.MONTH)
+                                    .asYearMonth(),
+                            showWeekdays = true,
+                            showPreviousMonthDays = true,
+                            showNextMonthDays = true,
+                        ),
                 )
             }
         }
-
     }
 }
 
-
 @Composable
-private fun SquareDay(
-    date: LocalDate,
-) {
+private fun SquareDay(date: LocalDate) {
     Column(
-        modifier = Modifier
-            .aspectRatio(1f)
-            .background(Color.Black)
-            .border(BorderStroke(1.dp, Color.White)),
+        modifier =
+            Modifier
+                .aspectRatio(1f)
+                .background(Color.Black)
+                .border(BorderStroke(1.dp, Color.White)),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
             "${date.dayOfMonth}",

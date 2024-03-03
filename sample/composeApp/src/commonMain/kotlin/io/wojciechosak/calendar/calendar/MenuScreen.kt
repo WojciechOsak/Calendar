@@ -22,7 +22,6 @@ import io.wojciechosak.calendar.calendar.screens.VerticalCalendarScreen
 import io.wojciechosak.calendar.calendar.screens.WeekViewScreen
 
 class MenuScreen : Screen {
-
     @Composable
     override fun Content() {
         LazyColumn {
@@ -40,11 +39,14 @@ class MenuScreen : Screen {
     }
 
     @Composable
-    private fun ScreenButton(screen: Screen?, title: String) {
+    private fun ScreenButton(
+        screen: Screen?,
+        title: String,
+    ) {
         val navigator = LocalNavigator.current
         Button(
             onClick = { screen?.let { navigator?.push(screen) } },
-            modifier = Modifier.fillMaxWidth().padding(10.dp)
+            modifier = Modifier.fillMaxWidth().padding(10.dp),
         ) {
             Text(title)
         }

@@ -12,21 +12,25 @@ import androidx.compose.ui.unit.sp
 import kotlinx.datetime.Month
 
 @Composable
-fun MonthHeader(month: Month, year: Int) {
-    val months = listOf(
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-    )
+fun MonthHeader(
+    month: Month,
+    year: Int,
+) {
+    val months =
+        listOf(
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+        )
     Text(
         "${months.getOrNull(month.ordinal)} $year",
         modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp, top = 0.dp),

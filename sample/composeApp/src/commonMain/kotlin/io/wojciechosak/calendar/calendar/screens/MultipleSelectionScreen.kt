@@ -39,18 +39,20 @@ class MultipleSelectionScreen : Screen {
                             },
                         )
                     },
-                    config = rememberCalendarState(
-                        yearMonth = LocalDate
-                            .today()
-                            .plus(monthOffset, DateTimeUnit.MONTH)
-                            .asYearMonth(),
-                        showWeekdays = true,
-                        showPreviousMonthDays = true,
-                        showNextMonthDays = true,
-                    ),
+                    config =
+                        rememberCalendarState(
+                            yearMonth =
+                                LocalDate
+                                    .today()
+                                    .plus(monthOffset, DateTimeUnit.MONTH)
+                                    .asYearMonth(),
+                            showWeekdays = true,
+                            showPreviousMonthDays = true,
+                            showNextMonthDays = true,
+                        ),
                     isActiveDay = {
                         it in selectedDates
-                    }
+                    },
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))

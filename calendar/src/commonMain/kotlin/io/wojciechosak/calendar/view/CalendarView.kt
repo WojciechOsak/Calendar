@@ -38,35 +38,40 @@ fun CalendarView(
         MonthHeader(month, year)
     },
     dayOfWeekLabel: @Composable (dayOfWeek: DayOfWeek) -> Unit = { dayOfWeek ->
-        val day = when (dayOfWeek) {
-            DayOfWeek.MONDAY -> "Mon"
-            DayOfWeek.TUESDAY -> "Tue"
-            DayOfWeek.WEDNESDAY -> "Wed"
-            DayOfWeek.THURSDAY -> "Thu"
-            DayOfWeek.FRIDAY -> "Fri"
-            DayOfWeek.SATURDAY -> "Sat"
-            DayOfWeek.SUNDAY -> "Sun"
-            else -> ""
-        }
+        val day =
+            when (dayOfWeek) {
+                DayOfWeek.MONDAY -> "Mon"
+                DayOfWeek.TUESDAY -> "Tue"
+                DayOfWeek.WEDNESDAY -> "Wed"
+                DayOfWeek.THURSDAY -> "Thu"
+                DayOfWeek.FRIDAY -> "Fri"
+                DayOfWeek.SATURDAY -> "Sat"
+                DayOfWeek.SUNDAY -> "Sun"
+                else -> ""
+            }
         Text(day, fontSize = 12.sp, textAlign = TextAlign.Center)
     },
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val yearMonth by remember { mutableStateOf(config.value.yearMonth) }
     val daysInCurrentMonth by remember {
         mutableStateOf(
             monthLength(
                 year = yearMonth.year,
-                month = yearMonth.month
-            )
+                month = yearMonth.month,
+            ),
         )
     }
     val previousMonthDays by remember { mutableStateOf(calculateVisibleDaysOfPreviousMonth(yearMonth)) }
     val nextMonthDays by remember {
         mutableStateOf(
-            if (config.value.showNextMonthDays) calculateVisibleDaysOfNextMonth(
-                yearMonth
-            ) else 0
+            if (config.value.showNextMonthDays) {
+                calculateVisibleDaysOfNextMonth(
+                    yearMonth,
+                )
+            } else {
+                0
+            },
         )
     }
 
@@ -79,7 +84,7 @@ fun CalendarView(
         horizontalArrangement = horizontalArrangement,
         verticalArrangement = verticalArrangement,
         userScrollEnabled = false,
-        modifier = modifier
+        modifier = modifier,
     ) {
         val state = config.value
         val weekDaysCount = if (state.showWeekdays) 7 else 0
@@ -95,12 +100,13 @@ fun CalendarView(
                 newDate =
                     newDate.plus(iteration - weekDaysCount - previousMonthDays, DateTimeUnit.DAY)
             } else if (nextMonthDay && config.value.showNextMonthDays) {
-                newDate = newDate
-                    .plus(1, DateTimeUnit.MONTH)
-                    .plus(
-                        iteration - previousMonthDays - weekDaysCount - daysInCurrentMonth,
-                        DateTimeUnit.DAY
-                    )
+                newDate =
+                    newDate
+                        .plus(1, DateTimeUnit.MONTH)
+                        .plus(
+                            iteration - previousMonthDays - weekDaysCount - daysInCurrentMonth,
+                            DateTimeUnit.DAY,
+                        )
             } else if (!isWeekdayLabel) {
                 newDate =
                     newDate.plus(iteration - previousMonthDays - weekDaysCount, DateTimeUnit.DAY)
@@ -111,9 +117,9 @@ fun CalendarView(
                 val dayOfWeekIndex =
                     if (iteration + state.dayOfWeekOffset >= DayOfWeek.entries.size) {
                         iteration + state.dayOfWeekOffset - DayOfWeek.entries.size
-                    } else if (iteration + state.dayOfWeekOffset < 0)
+                    } else if (iteration + state.dayOfWeekOffset < 0) {
                         DayOfWeek.entries.size + iteration + state.dayOfWeekOffset
-                    else {
+                    } else {
                         iteration + state.dayOfWeekOffset
                     }
                 dayOfWeekLabel(DayOfWeek.entries[dayOfWeekIndex])
@@ -126,8 +132,8 @@ fun CalendarView(
                         isActiveDay = isActiveDay(newDate),
                         isForPreviousMonth = previousMonthDay,
                         isForNextMonth = nextMonthDay,
-                        enabled = newDate >= state.minDate && newDate <= state.maxDate
-                    )
+                        enabled = newDate >= state.minDate && newDate <= state.maxDate,
+                    ),
                 )
             }
         }

@@ -28,9 +28,10 @@ import kotlinx.datetime.toLocalDateTime
 
 @Composable
 fun WeekView(
-    date: LocalDate = Clock.System.now()
-        .toLocalDateTime(TimeZone.currentSystemDefault())
-        .toLocalDate(),
+    date: LocalDate =
+        Clock.System.now()
+            .toLocalDateTime(TimeZone.currentSystemDefault())
+            .toLocalDate(),
     minDate: LocalDate = date.copy(day = 1).minus(1, DateTimeUnit.MONTH),
     maxDate: LocalDate = date.copy(day = monthLength(date.month, date.year)).plus(1, DateTimeUnit.MONTH),
     minimumDaysVisible: Int = 7,
@@ -52,10 +53,11 @@ fun WeekView(
         throw IllegalArgumentException("Provided date should be in range of minDate and maxDate.")
     }
     LazyRow(
-        state = rememberLazyListState(
-            initialFirstVisibleItemIndex = (minDate.daysUntil(date) - 3).coerceAtLeast(0),
-            initialFirstVisibleItemScrollOffset = 0
-        )
+        state =
+            rememberLazyListState(
+                initialFirstVisibleItemIndex = (minDate.daysUntil(date) - 3).coerceAtLeast(0),
+                initialFirstVisibleItemScrollOffset = 0,
+            ),
     ) {
         items((minDate.daysUntil(maxDate) + 1).coerceAtLeast(minimumDaysVisible.coerceAtLeast(1))) { index ->
             Column(
@@ -74,16 +76,17 @@ private fun weekDay(
     state: DayState,
     function: @Composable () -> Unit,
 ) {
-    val weekDay = when (state.date.dayOfWeek) {
-        DayOfWeek.MONDAY -> "Mon"
-        DayOfWeek.TUESDAY -> "Tue"
-        DayOfWeek.WEDNESDAY -> "Wed"
-        DayOfWeek.THURSDAY -> "Thu"
-        DayOfWeek.FRIDAY -> "Fri"
-        DayOfWeek.SATURDAY -> "Sat"
-        DayOfWeek.SUNDAY -> "Sun"
-        else -> ""
-    }
+    val weekDay =
+        when (state.date.dayOfWeek) {
+            DayOfWeek.MONDAY -> "Mon"
+            DayOfWeek.TUESDAY -> "Tue"
+            DayOfWeek.WEDNESDAY -> "Wed"
+            DayOfWeek.THURSDAY -> "Thu"
+            DayOfWeek.FRIDAY -> "Fri"
+            DayOfWeek.SATURDAY -> "Sat"
+            DayOfWeek.SUNDAY -> "Sun"
+            else -> ""
+        }
     Text(weekDay, fontSize = 12.sp, textAlign = TextAlign.Center)
     function()
 }

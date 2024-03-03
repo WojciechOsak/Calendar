@@ -11,7 +11,6 @@ import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.plus
 
-
 @Stable
 class CalendarConfig(
     val minDate: LocalDate,
@@ -21,7 +20,7 @@ class CalendarConfig(
     val showNextMonthDays: Boolean,
     val showPreviousMonthDays: Boolean,
     val showHeader: Boolean,
-    val showWeekdays: Boolean
+    val showWeekdays: Boolean,
 )
 
 @Composable
@@ -33,7 +32,7 @@ fun rememberCalendarState(
     showNextMonthDays: Boolean = true,
     showPreviousMonthDays: Boolean = true,
     showHeader: Boolean = true,
-    showWeekdays: Boolean = true
+    showWeekdays: Boolean = true,
 ): State<CalendarConfig> {
     return remember {
         mutableStateOf(
@@ -45,8 +44,8 @@ fun rememberCalendarState(
                 showNextMonthDays = showNextMonthDays,
                 showPreviousMonthDays = showPreviousMonthDays,
                 showHeader = showHeader,
-                showWeekdays = showWeekdays
-            )
+                showWeekdays = showWeekdays,
+            ),
         )
     }
 }

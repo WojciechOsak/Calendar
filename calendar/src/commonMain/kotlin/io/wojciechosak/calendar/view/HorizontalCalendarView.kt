@@ -15,10 +15,11 @@ fun HorizontalCalendarView(
     calendarView: @Composable (monthOffset: Int) -> Unit,
 ) {
     HorizontalPager(
-        state = rememberPagerState(
-            initialPage = Int.MAX_VALUE / 2,
-            pageCount = { Int.MAX_VALUE },
-        ),
+        state =
+            rememberPagerState(
+                initialPage = Int.MAX_VALUE / 2,
+                pageCount = { Int.MAX_VALUE },
+            ),
         modifier = modifier.fillMaxWidth(),
         beyondBoundsPageCount = 0,
     ) {
