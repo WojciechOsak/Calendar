@@ -1,5 +1,6 @@
 package io.wojciechosak.calendar.calendar.screens
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -23,6 +24,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.plus
 
 class SingleSelectionScreen : Screen {
+    @OptIn(ExperimentalFoundationApi::class)
     @Composable
     override fun Content() {
         Column {

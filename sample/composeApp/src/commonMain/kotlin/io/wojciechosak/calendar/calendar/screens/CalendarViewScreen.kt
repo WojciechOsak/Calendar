@@ -11,10 +11,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,18 +28,13 @@ import kotlin.random.Random
 class CalendarViewScreen : Screen {
     @Composable
     override fun Content() {
-        var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
-
         CalendarView(
             day = { state ->
                 DayView(
                     date = state.date,
                     isDotVisible = state.isActiveDay || Random.nextBoolean(),
-                    onClick = { selectedDate = state.date },
+                    onClick = { },
                 )
-            },
-            isActiveDay = {
-                it == selectedDate
             },
             config =
                 rememberCalendarState(
