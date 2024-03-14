@@ -17,21 +17,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import io.wojciechosak.calendar.config.rememberCalendarState
-import io.wojciechosak.calendar.utils.asYearMonth
 import io.wojciechosak.calendar.utils.today
 import io.wojciechosak.calendar.view.CalendarDay
 import io.wojciechosak.calendar.view.CalendarView
 import io.wojciechosak.calendar.view.HorizontalCalendarView
-import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.plus
 
 class HorizontalCalendarScreen : Screen {
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     override fun Content() {
+        val startDate = LocalDate.today()
         Column {
-            HorizontalCalendarView { monthOffset ->
+            HorizontalCalendarView(startDate = startDate) { monthOffset ->
                 CalendarView(
                     day = { dayState ->
                         CalendarDay(
@@ -41,29 +39,23 @@ class HorizontalCalendarScreen : Screen {
                     },
                     config =
                         rememberCalendarState(
-                            yearMonth =
-                                LocalDate
-                                    .today()
-                                    .plus(monthOffset, DateTimeUnit.MONTH)
-                                    .asYearMonth(),
+                            startDate = startDate,
+                            monthOffset = monthOffset,
                             showWeekdays = true,
                             showPreviousMonthDays = true,
                             showNextMonthDays = true,
                         ),
                 )
             }
-            HorizontalCalendarView { monthOffset ->
+            HorizontalCalendarView(startDate = startDate) { monthOffset ->
                 CalendarView(
                     day = { dayState ->
                         SquareDay(dayState.date)
                     },
                     config =
                         rememberCalendarState(
-                            yearMonth =
-                                LocalDate
-                                    .today()
-                                    .plus(monthOffset, DateTimeUnit.MONTH)
-                                    .asYearMonth(),
+                            startDate = startDate,
+                            monthOffset = monthOffset,
                             showWeekdays = true,
                             showPreviousMonthDays = true,
                             showNextMonthDays = true,

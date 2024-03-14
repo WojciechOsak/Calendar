@@ -22,7 +22,7 @@ Features:
 |      Single selection      |     ✅     |
 |     Multiple selection     |     ✅     |
 |     Month/Year picker      |    🔜     |
-|  Scroll to date animation  |    🔜     |
+|  Scroll to date animation  |     ✅     |
 |     Vertical calendar      |     ✅     |
 |      Range selection       |    🔜     |
 

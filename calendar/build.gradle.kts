@@ -106,6 +106,7 @@ kotlin {
     }
 }
 
+
 android {
     namespace = "com.wojciechosak.calendar"
     compileSdk = 34

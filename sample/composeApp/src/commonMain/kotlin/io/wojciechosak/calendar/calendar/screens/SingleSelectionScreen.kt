@@ -14,14 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import io.wojciechosak.calendar.config.rememberCalendarState
-import io.wojciechosak.calendar.utils.asYearMonth
 import io.wojciechosak.calendar.utils.today
 import io.wojciechosak.calendar.view.CalendarDay
 import io.wojciechosak.calendar.view.CalendarView
 import io.wojciechosak.calendar.view.HorizontalCalendarView
-import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.plus
 
 class SingleSelectionScreen : Screen {
     @OptIn(ExperimentalFoundationApi::class)
@@ -29,7 +26,8 @@ class SingleSelectionScreen : Screen {
     override fun Content() {
         Column {
             var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
-            HorizontalCalendarView { monthOffset ->
+            val startDate = LocalDate.today()
+            HorizontalCalendarView(startDate = startDate) { monthOffset ->
                 CalendarView(
                     day = { dayState ->
                         CalendarDay(
@@ -41,11 +39,8 @@ class SingleSelectionScreen : Screen {
                     },
                     config =
                         rememberCalendarState(
-                            yearMonth =
-                                LocalDate
-                                    .today()
-                                    .plus(monthOffset, DateTimeUnit.MONTH)
-                                    .asYearMonth(),
+                            startDate = startDate,
+                            monthOffset = monthOffset,
                             showWeekdays = true,
                             showPreviousMonthDays = true,
                             showNextMonthDays = true,

@@ -18,8 +18,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
-import io.wojciechosak.calendar.config.YearMonth
+import io.wojciechosak.calendar.config.MonthYear
 import io.wojciechosak.calendar.config.rememberCalendarState
+import io.wojciechosak.calendar.config.toLocalDate
 import io.wojciechosak.calendar.view.CalendarView
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
@@ -38,7 +39,8 @@ class CalendarViewScreen : Screen {
             },
             config =
                 rememberCalendarState(
-                    yearMonth = YearMonth(year = 1994, month = Month.APRIL),
+                    startDate = MonthYear(year = 1994, month = Month.APRIL).toLocalDate(),
+                    monthOffset = 0,
                     showWeekdays = false,
                     showPreviousMonthDays = false,
                     showNextMonthDays = false,

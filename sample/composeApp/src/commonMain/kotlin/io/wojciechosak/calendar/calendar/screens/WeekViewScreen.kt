@@ -36,7 +36,6 @@ class WeekViewScreen : Screen {
             WeekView { state ->
                 CalendarDay(
                     state,
-                    modifier = Modifier.width(58.dp),
                     onClick = { },
                 )
                 monthName = state.date.month.name
@@ -47,7 +46,7 @@ class WeekViewScreen : Screen {
             Spacer(modifier = Modifier.height(20.dp))
 
             WeekView(
-                date = LocalDate.today(),
+                startDate = LocalDate.today(),
                 minDate = LocalDate.today().minus(9, DateTimeUnit.DAY),
                 maxDate = LocalDate.today().plus(9, DateTimeUnit.DAY),
                 isActive = { it == selectedDay },

@@ -9,14 +9,12 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import io.wojciechosak.calendar.config.CalendarConfig
 import io.wojciechosak.calendar.config.DayState
-import io.wojciechosak.calendar.config.YearMonth
-import io.wojciechosak.calendar.config.rememberCalendarState
+import io.wojciechosak.calendar.config.MonthYear
 import io.wojciechosak.calendar.utils.monthLength
 import io.wojciechosak.calendar.utils.today
 import kotlinx.datetime.DateTimeUnit
@@ -27,7 +25,7 @@ import kotlinx.datetime.plus
 
 @Composable
 fun CalendarView(
-    config: State<CalendarConfig> = rememberCalendarState(),
+    config: State<CalendarConfig>,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.SpaceEvenly,
     verticalArrangement: Arrangement.Vertical = Arrangement.SpaceEvenly,
     isActiveDay: (LocalDate) -> Boolean = { LocalDate.today() == it },
@@ -53,7 +51,8 @@ fun CalendarView(
     },
     modifier: Modifier = Modifier,
 ) {
-    val yearMonth by remember { mutableStateOf(config.value.yearMonth) }
+    val yearMonth by remember { mutableStateOf(config.value.monthYear) }
+
     val daysInCurrentMonth by remember {
         mutableStateOf(
             monthLength(
@@ -140,13 +139,13 @@ fun CalendarView(
     }
 }
 
-private fun calculateVisibleDaysOfPreviousMonth(yearMonth: YearMonth): Int {
-    val (year, month) = yearMonth
+private fun calculateVisibleDaysOfPreviousMonth(monthYear: MonthYear): Int {
+    val (month, year) = monthYear
     return LocalDate(year = year, month = month, dayOfMonth = 1).dayOfWeek.ordinal
 }
 
-private fun calculateVisibleDaysOfNextMonth(yearMonth: YearMonth): Int {
-    val (year, month) = yearMonth
+private fun calculateVisibleDaysOfNextMonth(monthYear: MonthYear): Int {
+    val (month, year) = monthYear
     val daysInMonth = monthLength(month, year)
     val lastMonthDay = LocalDate(year = year, month = month, dayOfMonth = daysInMonth)
     return 6 - lastMonthDay.dayOfWeek.ordinal

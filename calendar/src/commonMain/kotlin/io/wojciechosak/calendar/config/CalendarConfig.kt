@@ -5,8 +5,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import io.wojciechosak.calendar.utils.asYearMonth
-import io.wojciechosak.calendar.utils.today
+import io.wojciechosak.calendar.utils.toMonthYear
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.plus
@@ -15,7 +14,7 @@ import kotlinx.datetime.plus
 class CalendarConfig(
     val minDate: LocalDate,
     val maxDate: LocalDate,
-    val yearMonth: YearMonth,
+    val monthYear: MonthYear,
     val dayOfWeekOffset: Int,
     val showNextMonthDays: Boolean,
     val showPreviousMonthDays: Boolean,
@@ -25,9 +24,10 @@ class CalendarConfig(
 
 @Composable
 fun rememberCalendarState(
+    startDate: LocalDate,
     minDate: LocalDate = LocalDate(1971, 1, 1),
-    maxDate: LocalDate = LocalDate.today().plus(15, DateTimeUnit.YEAR),
-    yearMonth: YearMonth = LocalDate.today().asYearMonth(),
+    maxDate: LocalDate = startDate.plus(15, DateTimeUnit.YEAR),
+    monthOffset: Int,
     dayOfWeekOffset: Int = 0,
     showNextMonthDays: Boolean = true,
     showPreviousMonthDays: Boolean = true,
@@ -39,7 +39,7 @@ fun rememberCalendarState(
             CalendarConfig(
                 minDate = minDate,
                 maxDate = maxDate,
-                yearMonth = yearMonth,
+                monthYear = startDate.plus(monthOffset, DateTimeUnit.MONTH).toMonthYear(),
                 dayOfWeekOffset = dayOfWeekOffset,
                 showNextMonthDays = showNextMonthDays,
                 showPreviousMonthDays = showPreviousMonthDays,

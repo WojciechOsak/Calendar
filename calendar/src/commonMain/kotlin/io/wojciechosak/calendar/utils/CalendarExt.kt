@@ -1,6 +1,6 @@
 package io.wojciechosak.calendar.utils
 
-import io.wojciechosak.calendar.config.YearMonth
+import io.wojciechosak.calendar.config.MonthYear
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
@@ -47,6 +47,6 @@ fun LocalDate.Companion.today(): LocalDate {
         .toLocalDate()
 }
 
-fun LocalDate.asYearMonth(): YearMonth {
-    return YearMonth(this.year, this.month)
+fun LocalDate.toMonthYear(): MonthYear {
+    return MonthYear(this.month, this.year)
 }
