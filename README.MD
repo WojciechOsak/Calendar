@@ -21,7 +21,7 @@ Features:
 |      Calendar offsets      |     ✅     |
 |      Single selection      |     ✅     |
 |     Multiple selection     |     ✅     |
-|     Month/Year picker      |    🔜     |
+|     Month/Year picker      |     ✅     |
 |  Scroll to date animation  |     ✅     |
 |     Vertical calendar      |     ✅     |
 |      Range selection       |    🔜     |

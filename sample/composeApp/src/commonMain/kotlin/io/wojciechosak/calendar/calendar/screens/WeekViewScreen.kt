@@ -1,11 +1,14 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package io.wojciechosak.calendar.calendar.screens
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,12 +36,15 @@ class WeekViewScreen : Screen {
 
             Text(monthName, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
 
-            WeekView { state ->
+            WeekView(
+                firstVisibleDate = {
+                    monthName = it.month.name
+                },
+            ) { state ->
                 CalendarDay(
                     state,
                     onClick = { },
                 )
-                monthName = state.date.month.name
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -52,14 +58,14 @@ class WeekViewScreen : Screen {
                 isActive = { it == selectedDay },
             ) { state ->
                 val isInNextThreeDays =
-                    state.date in LocalDate.today().plus(1, DateTimeUnit.DAY)..LocalDate.today()
+                    state.date in LocalDate
+                        .today()
+                        .plus(1, DateTimeUnit.DAY)..LocalDate.today()
                         .plus(3, DateTimeUnit.DAY)
                 CalendarDay(
-                    state.copy(enabled = !isInNextThreeDays),
-                    modifier = Modifier.width(58.dp),
-                    onClick = {
-                        selectedDay = state.date
-                    },
+                    state = state.copy(enabled = !isInNextThreeDays),
+                    modifier = Modifier.size(54.dp),
+                    onClick = { selectedDay = state.date },
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))

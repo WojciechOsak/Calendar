@@ -6,8 +6,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
@@ -32,7 +30,7 @@ fun CalendarDay(
 ) = with(state) {
     OutlinedButton(
         onClick = onClick,
-        modifier = modifier.size(50.dp).padding(0.dp),
+        modifier = modifier,
         shape = RoundedCornerShape(50.dp),
         border = BorderStroke(1.dp, Color.Transparent),
         contentPadding = PaddingValues(0.dp),

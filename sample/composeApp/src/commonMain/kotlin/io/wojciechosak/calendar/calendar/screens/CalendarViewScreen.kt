@@ -41,10 +41,10 @@ class CalendarViewScreen : Screen {
                 rememberCalendarState(
                     startDate = MonthYear(year = 1994, month = Month.APRIL).toLocalDate(),
                     monthOffset = 0,
-                    showWeekdays = false,
-                    showPreviousMonthDays = false,
                     showNextMonthDays = false,
+                    showPreviousMonthDays = false,
                     showHeader = false,
+                    showWeekdays = false,
                 ),
         )
     }

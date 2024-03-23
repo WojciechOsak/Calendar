@@ -18,11 +18,11 @@ import io.wojciechosak.calendar.animation.CalendarAnimator
 import io.wojciechosak.calendar.config.CalendarConstants.INITIAL_PAGE_INDEX
 import io.wojciechosak.calendar.config.DayState
 import io.wojciechosak.calendar.utils.copy
+import io.wojciechosak.calendar.utils.daySimpleName
 import io.wojciechosak.calendar.utils.monthLength
 import io.wojciechosak.calendar.utils.toLocalDate
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
-import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.daysUntil
@@ -50,6 +50,7 @@ fun WeekView(
         today == it
     },
     modifier: Modifier = Modifier,
+    firstVisibleDate: (LocalDate) -> Unit = {},
     day: @Composable (dayState: DayState) -> Unit = { state ->
         weekDay(state) {
             CalendarDay(
@@ -76,12 +77,13 @@ fun WeekView(
     ) {
         val index = it - initialPageIndex // week number
         calendarAnimator.updatePagerState(pagerState)
-        for (a in 0..6) {
+        firstVisibleDate(startDate.plus(index * 7, DateTimeUnit.DAY))
+        for (day in 0..6) {
             Column(
-                verticalArrangement = Arrangement.Center,
+                verticalArrangement = Arrangement.SpaceEvenly,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                val newDate = startDate.plus(index * 7 + a, DateTimeUnit.DAY)
+                val newDate = startDate.plus(index * 7 + day, DateTimeUnit.DAY)
                 day(
                     DayState(
                         date = newDate,
@@ -99,17 +101,6 @@ private fun weekDay(
     state: DayState,
     function: @Composable () -> Unit,
 ) {
-    val weekDay =
-        when (state.date.dayOfWeek) {
-            DayOfWeek.MONDAY -> "Mon"
-            DayOfWeek.TUESDAY -> "Tue"
-            DayOfWeek.WEDNESDAY -> "Wed"
-            DayOfWeek.THURSDAY -> "Thu"
-            DayOfWeek.FRIDAY -> "Fri"
-            DayOfWeek.SATURDAY -> "Sat"
-            DayOfWeek.SUNDAY -> "Sun"
-            else -> ""
-        }
-    Text(weekDay, fontSize = 12.sp, textAlign = TextAlign.Center)
+    Text(state.date.daySimpleName(), fontSize = 12.sp, textAlign = TextAlign.Center)
     function()
 }

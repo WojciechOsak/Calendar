@@ -1,11 +1,12 @@
 package io.wojciechosak.calendar.view
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -15,6 +16,8 @@ import androidx.compose.ui.unit.sp
 import io.wojciechosak.calendar.config.CalendarConfig
 import io.wojciechosak.calendar.config.DayState
 import io.wojciechosak.calendar.config.MonthYear
+import io.wojciechosak.calendar.config.SelectionMode
+import io.wojciechosak.calendar.modifiers.passTouchGesture
 import io.wojciechosak.calendar.utils.monthLength
 import io.wojciechosak.calendar.utils.today
 import kotlinx.datetime.DateTimeUnit
@@ -25,7 +28,7 @@ import kotlinx.datetime.plus
 
 @Composable
 fun CalendarView(
-    config: State<CalendarConfig>,
+    config: MutableState<CalendarConfig>,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.SpaceEvenly,
     verticalArrangement: Arrangement.Vertical = Arrangement.SpaceEvenly,
     isActiveDay: (LocalDate) -> Boolean = { LocalDate.today() == it },
@@ -36,23 +39,17 @@ fun CalendarView(
         MonthHeader(month, year)
     },
     dayOfWeekLabel: @Composable (dayOfWeek: DayOfWeek) -> Unit = { dayOfWeek ->
-        val day =
-            when (dayOfWeek) {
-                DayOfWeek.MONDAY -> "Mon"
-                DayOfWeek.TUESDAY -> "Tue"
-                DayOfWeek.WEDNESDAY -> "Wed"
-                DayOfWeek.THURSDAY -> "Thu"
-                DayOfWeek.FRIDAY -> "Fri"
-                DayOfWeek.SATURDAY -> "Sat"
-                DayOfWeek.SUNDAY -> "Sun"
-                else -> ""
-            }
-        Text(day, fontSize = 12.sp, textAlign = TextAlign.Center)
+        Text(
+            dayOfWeek.name.substring(IntRange(0, 2)),
+            fontSize = 12.sp,
+            textAlign = TextAlign.Center,
+        )
     },
+    selectionMode: SelectionMode = SelectionMode.Multiply(5),
+    onDateSelected: (List<LocalDate>) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val yearMonth by remember { mutableStateOf(config.value.monthYear) }
-
     val daysInCurrentMonth by remember {
         mutableStateOf(
             monthLength(
@@ -87,6 +84,7 @@ fun CalendarView(
     ) {
         val state = config.value
         val weekDaysCount = if (state.showWeekdays) 7 else 0
+
         items(previousMonthDays + daysInCurrentMonth + nextMonthDays + weekDaysCount) { iteration ->
             val isWeekdayLabel = state.showWeekdays && iteration < weekDaysCount
             val previousMonthDay =
@@ -125,18 +123,59 @@ fun CalendarView(
             } else if ((!state.showPreviousMonthDays && previousMonthDay) || (!state.showNextMonthDays && nextMonthDay)) {
                 Text("")
             } else {
-                day(
-                    DayState(
-                        date = newDate,
-                        isActiveDay = isActiveDay(newDate),
-                        isForPreviousMonth = previousMonthDay,
-                        isForNextMonth = nextMonthDay,
-                        enabled = newDate >= state.minDate && newDate <= state.maxDate,
-                    ),
-                )
+                Box(
+                    modifier =
+                        Modifier.passTouchGesture {
+                            val selectionList = selectDate(date = newDate, mode = selectionMode, list = config.value.selectedDates)
+                            config.value = config.value.copy(selectedDates = selectionList)
+                            onDateSelected(config.value.selectedDates)
+                        },
+                ) {
+                    day(
+                        DayState(
+                            date = newDate,
+                            isActiveDay = isActiveDay(newDate),
+                            isForPreviousMonth = previousMonthDay,
+                            isForNextMonth = nextMonthDay,
+                            enabled = newDate >= state.minDate && newDate <= state.maxDate,
+                        ),
+                    )
+                }
             }
         }
     }
+}
+
+private fun selectDate(
+    date: LocalDate,
+    mode: SelectionMode,
+    list: List<LocalDate>,
+): List<LocalDate> {
+    if (list.firstOrNull() == date) return list
+    val result = mutableListOf<LocalDate>()
+    result.addAll(list)
+
+    when (mode) {
+        is SelectionMode.Multiply -> {
+            result.add(0, date)
+            if (result.size > mode.bufferSize) {
+                result.removeLast()
+            }
+        }
+
+        SelectionMode.Range -> {
+            result.add(0, date)
+            if (result.size >= 2) {
+                result.removeLast()
+            }
+        }
+
+        SelectionMode.Single -> {
+            result.clear()
+            result.add(date)
+        }
+    }
+    return result
 }
 
 private fun calculateVisibleDaysOfPreviousMonth(monthYear: MonthYear): Int {

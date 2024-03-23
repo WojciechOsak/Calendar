@@ -33,12 +33,16 @@ internal fun LocalDateTime.toLocalDate(): LocalDate {
     return LocalDate(year, month, dayOfMonth)
 }
 
-internal fun LocalDate.copy(
+fun LocalDate.copy(
     year: Int = this.year,
     month: Month = this.month,
     day: Int = this.dayOfMonth,
 ): LocalDate {
-    return LocalDate(year, month, day)
+    return try {
+        LocalDate(year, month, day)
+    } catch (e: IllegalArgumentException) {
+        LocalDate(year, month, monthLength(month, year))
+    }
 }
 
 fun LocalDate.Companion.today(): LocalDate {
@@ -50,3 +54,5 @@ fun LocalDate.Companion.today(): LocalDate {
 fun LocalDate.toMonthYear(): MonthYear {
     return MonthYear(this.month, this.year)
 }
+
+fun LocalDate.daySimpleName() = dayOfWeek.name.substring(IntRange(0, 2))

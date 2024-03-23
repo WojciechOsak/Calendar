@@ -17,13 +17,13 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import io.wojciechosak.calendar.animation.CalendarAnimator
 import io.wojciechosak.calendar.config.rememberCalendarState
+import io.wojciechosak.calendar.utils.daySimpleName
 import io.wojciechosak.calendar.utils.today
 import io.wojciechosak.calendar.view.CalendarDay
 import io.wojciechosak.calendar.view.CalendarView
 import io.wojciechosak.calendar.view.HorizontalCalendarView
 import io.wojciechosak.calendar.view.WeekView
 import kotlinx.coroutines.launch
-import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 
@@ -54,9 +54,6 @@ class AnimationScreen : Screen {
                         rememberCalendarState(
                             startDate = startDate,
                             monthOffset = monthOffset,
-                            showWeekdays = true,
-                            showPreviousMonthDays = true,
-                            showNextMonthDays = true,
                         ),
                 )
             }
@@ -76,18 +73,7 @@ class AnimationScreen : Screen {
                 startDate = startDate,
                 calendarAnimator = weekCalendarAnimator,
             ) { state ->
-                val dayOfWeek =
-                    when (state.date.dayOfWeek) {
-                        DayOfWeek.MONDAY -> "Mon"
-                        DayOfWeek.TUESDAY -> "Tue"
-                        DayOfWeek.WEDNESDAY -> "Wed"
-                        DayOfWeek.THURSDAY -> "Thu"
-                        DayOfWeek.FRIDAY -> "Fri"
-                        DayOfWeek.SATURDAY -> "Sat"
-                        DayOfWeek.SUNDAY -> "Sun"
-                        else -> ""
-                    }
-                Text(dayOfWeek)
+                Text(state.date.daySimpleName())
                 CalendarDay(
                     state,
                     modifier = Modifier.width(58.dp),

@@ -25,29 +25,21 @@ class SingleSelectionScreen : Screen {
     @Composable
     override fun Content() {
         Column {
-            var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
             val startDate = LocalDate.today()
+            var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
+
             HorizontalCalendarView(startDate = startDate) { monthOffset ->
                 CalendarView(
                     day = { dayState ->
-                        CalendarDay(
-                            state = dayState,
-                            onClick = {
-                                selectedDate = dayState.date
-                            },
-                        )
+                        CalendarDay(state = dayState)
                     },
                     config =
                         rememberCalendarState(
                             startDate = startDate,
                             monthOffset = monthOffset,
-                            showWeekdays = true,
-                            showPreviousMonthDays = true,
-                            showNextMonthDays = true,
                         ),
-                    isActiveDay = {
-                        it == selectedDate
-                    },
+                    isActiveDay = { it == selectedDate },
+                    onDateSelected = { selectedDate = it.firstOrNull() },
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))

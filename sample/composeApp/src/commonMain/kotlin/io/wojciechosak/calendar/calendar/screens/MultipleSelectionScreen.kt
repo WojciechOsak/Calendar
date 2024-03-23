@@ -4,7 +4,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.pager.PageSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
@@ -14,10 +13,8 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import io.wojciechosak.calendar.config.rememberCalendarState
 import io.wojciechosak.calendar.utils.today
-import io.wojciechosak.calendar.view.CalendarDay
 import io.wojciechosak.calendar.view.CalendarView
 import io.wojciechosak.calendar.view.HorizontalCalendarView
-import io.wojciechosak.calendar.view.VerticalCalendarView
 import kotlinx.datetime.LocalDate
 
 class MultipleSelectionScreen : Screen {
@@ -25,67 +22,27 @@ class MultipleSelectionScreen : Screen {
     @Composable
     override fun Content() {
         Column {
-            val selectedDates = remember { mutableStateListOf<LocalDate>() }
             val startDate = LocalDate.today()
+            val selectedDates = remember { mutableStateListOf<LocalDate>() }
 
             HorizontalCalendarView(startDate = startDate) { monthOffset ->
                 CalendarView(
-                    day = { dayState ->
-                        CalendarDay(
-                            state = dayState,
-                            onClick = {
-                                if (selectedDates.size > 2) {
-                                    selectedDates.removeFirst()
-                                }
-                                selectedDates.add(dayState.date)
-                            },
-                        )
-                    },
                     config =
                         rememberCalendarState(
                             startDate = startDate,
                             monthOffset = monthOffset,
-                            showWeekdays = true,
-                            showPreviousMonthDays = true,
-                            showNextMonthDays = true,
+                            selectedDates = selectedDates,
                         ),
-                    isActiveDay = {
-                        it in selectedDates
+                    isActiveDay = { it in selectedDates },
+                    onDateSelected = {
+                        selectedDates.clear()
+                        selectedDates.addAll(it)
                     },
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))
-            if (!selectedDates.isEmpty()) {
+            if (selectedDates.isNotEmpty()) {
                 Text("Selected:\n${selectedDates.map { "$it\n" }}")
-            }
-            VerticalCalendarView(
-                startDate = startDate,
-                pageSize = PageSize.Fixed(300.dp),
-            ) { monthOffset ->
-                CalendarView(
-                    day = { dayState ->
-                        CalendarDay(
-                            state = dayState,
-                            onClick = {
-                                if (selectedDates.size > 2) {
-                                    selectedDates.removeFirst()
-                                }
-                                selectedDates.add(dayState.date)
-                            },
-                        )
-                    },
-                    config =
-                        rememberCalendarState(
-                            startDate = startDate,
-                            monthOffset = monthOffset,
-                            showWeekdays = true,
-                            showPreviousMonthDays = true,
-                            showNextMonthDays = true,
-                        ),
-                    isActiveDay = {
-                        it in selectedDates
-                    },
-                )
             }
         }
     }

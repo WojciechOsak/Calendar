@@ -41,9 +41,6 @@ class HorizontalCalendarScreen : Screen {
                         rememberCalendarState(
                             startDate = startDate,
                             monthOffset = monthOffset,
-                            showWeekdays = true,
-                            showPreviousMonthDays = true,
-                            showNextMonthDays = true,
                         ),
                 )
             }
@@ -56,9 +53,6 @@ class HorizontalCalendarScreen : Screen {
                         rememberCalendarState(
                             startDate = startDate,
                             monthOffset = monthOffset,
-                            showWeekdays = true,
-                            showPreviousMonthDays = true,
-                            showNextMonthDays = true,
                         ),
                 )
             }

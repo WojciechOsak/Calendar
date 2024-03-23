@@ -34,9 +34,6 @@ class VerticalCalendarScreen : Screen {
                         rememberCalendarState(
                             startDate = startDate,
                             monthOffset = monthOffset,
-                            showWeekdays = true,
-                            showPreviousMonthDays = true,
-                            showNextMonthDays = true,
                         ),
                 )
             }

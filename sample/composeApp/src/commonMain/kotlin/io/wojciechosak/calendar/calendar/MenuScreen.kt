@@ -13,8 +13,8 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import io.wojciechosak.calendar.calendar.screens.AnimationScreen
 import io.wojciechosak.calendar.calendar.screens.CalendarViewScreen
+import io.wojciechosak.calendar.calendar.screens.FullDateScreen
 import io.wojciechosak.calendar.calendar.screens.HorizontalCalendarScreen
-import io.wojciechosak.calendar.calendar.screens.MonthYearPickerScreen
 import io.wojciechosak.calendar.calendar.screens.MultipleSelectionScreen
 import io.wojciechosak.calendar.calendar.screens.RangeSelectionScreen
 import io.wojciechosak.calendar.calendar.screens.SingleSelectionScreen
@@ -31,9 +31,9 @@ class MenuScreen : Screen {
             item { ScreenButton(WeekViewScreen(), "Week view") }
             item { ScreenButton(SingleSelectionScreen(), "Single selection") }
             item { ScreenButton(MultipleSelectionScreen(), "Multiple selection") }
-            item { ScreenButton(MonthYearPickerScreen(), "Month/Year picker (\uD83D\uDD1C)") }
             item { ScreenButton(AnimationScreen(), "Scroll animation") }
             item { ScreenButton(RangeSelectionScreen(), "Range selection (\uD83D\uDD1C)") }
+            item { ScreenButton(FullDateScreen(), "Full date selector (day/month/year)") }
             item { Text("Lib version: 0.0.5") }
         }
     }

@@ -37,6 +37,7 @@ fun HorizontalCalendarView(
             initialPage = INITIAL_PAGE_INDEX,
             pageCount = { Int.MAX_VALUE },
         )
+
     HorizontalPager(
         state = pagerState,
         modifier = modifier,
