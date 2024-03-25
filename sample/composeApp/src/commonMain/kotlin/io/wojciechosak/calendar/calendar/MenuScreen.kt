@@ -31,8 +31,8 @@ class MenuScreen : Screen {
             item { ScreenButton(WeekViewScreen(), "Week view") }
             item { ScreenButton(SingleSelectionScreen(), "Single selection") }
             item { ScreenButton(MultipleSelectionScreen(), "Multiple selection") }
-            item { ScreenButton(AnimationScreen(), "Scroll animation") }
-            item { ScreenButton(RangeSelectionScreen(), "Range selection (\uD83D\uDD1C)") }
+            item { ScreenButton(AnimationScreen(), "Animations") }
+            item { ScreenButton(RangeSelectionScreen(), "Range selection") }
             item { ScreenButton(FullDateScreen(), "Full date selector (day/month/year)") }
             item { Text("Lib version: 0.0.5") }
         }

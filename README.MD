@@ -11,7 +11,7 @@ calendar picker for any platform you want: Android, iOS, Desktop or even Web!
 
 Features:
 
-|          Platform          | Supported |
+|          Feature           | Supported |
 |:--------------------------:|:---------:|
 | Single month calendar view |     ✅     |
 |       Week calendar        |     ✅     |
@@ -24,7 +24,7 @@ Features:
 |     Month/Year picker      |     ✅     |
 |  Scroll to date animation  |     ✅     |
 |     Vertical calendar      |     ✅     |
-|      Range selection       |    🔜     |
+|      Range selection       |     ✅     |
 
 ---
 

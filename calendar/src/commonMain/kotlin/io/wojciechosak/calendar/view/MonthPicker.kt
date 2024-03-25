@@ -38,8 +38,13 @@ fun MonthPicker(
             val selectedMonth = Month.entries.getOrNull(index)
             Box(
                 modifier =
-                    Modifier
-                        .passTouchGesture { selectedMonth?.let { month -> onMonthSelected(month) } },
+                    Modifier.passTouchGesture {
+                        selectedMonth?.let { month ->
+                            onMonthSelected(
+                                month,
+                            )
+                        }
+                    },
                 contentAlignment = Alignment.Center,
             ) {
                 selectedMonth?.let { month -> monthView(month) }

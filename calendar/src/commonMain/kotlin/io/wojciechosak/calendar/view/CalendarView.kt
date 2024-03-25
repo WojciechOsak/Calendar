@@ -17,7 +17,9 @@ import io.wojciechosak.calendar.config.CalendarConfig
 import io.wojciechosak.calendar.config.DayState
 import io.wojciechosak.calendar.config.MonthYear
 import io.wojciechosak.calendar.config.SelectionMode
+import io.wojciechosak.calendar.modifiers.drawRange
 import io.wojciechosak.calendar.modifiers.passTouchGesture
+import io.wojciechosak.calendar.range.RangeConfig
 import io.wojciechosak.calendar.utils.monthLength
 import io.wojciechosak.calendar.utils.today
 import kotlinx.datetime.DateTimeUnit
@@ -45,8 +47,9 @@ fun CalendarView(
             textAlign = TextAlign.Center,
         )
     },
-    selectionMode: SelectionMode = SelectionMode.Multiply(5),
+    selectionMode: SelectionMode = SelectionMode.Multiply(3),
     onDateSelected: (List<LocalDate>) -> Unit = {},
+    rangeConfig: RangeConfig? = null,
     modifier: Modifier = Modifier,
 ) {
     val yearMonth by remember { mutableStateOf(config.value.monthYear) }
@@ -86,62 +89,107 @@ fun CalendarView(
         val weekDaysCount = if (state.showWeekdays) 7 else 0
 
         items(previousMonthDays + daysInCurrentMonth + nextMonthDays + weekDaysCount) { iteration ->
-            val isWeekdayLabel = state.showWeekdays && iteration < weekDaysCount
-            val previousMonthDay =
-                iteration >= weekDaysCount && iteration < weekDaysCount + previousMonthDays
-            val nextMonthDay =
-                iteration >= weekDaysCount + previousMonthDays + daysInCurrentMonth
-            var newDate = LocalDate(year = yearMonth.year, month = yearMonth.month, dayOfMonth = 1)
+            Item(
+                iteration = iteration,
+                config = config,
+                weekDaysCount = weekDaysCount,
+                previousMonthDays = previousMonthDays,
+                daysInCurrentMonth = daysInCurrentMonth,
+                dayOfWeekLabel = dayOfWeekLabel,
+                yearMonth = yearMonth,
+                state = state,
+                selectionMode = selectionMode,
+                onDateSelected = onDateSelected,
+                isActiveDay = isActiveDay,
+                rangeConfig = rangeConfig,
+                day = day,
+            )
+        }
+    }
+}
 
-            if (previousMonthDay && config.value.showPreviousMonthDays) {
-                newDate =
-                    newDate.plus(iteration - weekDaysCount - previousMonthDays, DateTimeUnit.DAY)
-            } else if (nextMonthDay && config.value.showNextMonthDays) {
-                newDate =
-                    newDate
-                        .plus(1, DateTimeUnit.MONTH)
-                        .plus(
-                            iteration - previousMonthDays - weekDaysCount - daysInCurrentMonth,
-                            DateTimeUnit.DAY,
-                        )
-            } else if (!isWeekdayLabel) {
-                newDate =
-                    newDate.plus(iteration - previousMonthDays - weekDaysCount, DateTimeUnit.DAY)
-            }
-            newDate = newDate.plus(state.dayOfWeekOffset, DateTimeUnit.DAY)
+@Composable
+private fun Item(
+    iteration: Int,
+    config: MutableState<CalendarConfig>,
+    weekDaysCount: Int,
+    previousMonthDays: Int,
+    daysInCurrentMonth: Int,
+    dayOfWeekLabel: @Composable (DayOfWeek) -> Unit,
+    yearMonth: MonthYear,
+    state: CalendarConfig,
+    selectionMode: SelectionMode,
+    onDateSelected: (List<LocalDate>) -> Unit,
+    isActiveDay: (LocalDate) -> Boolean,
+    rangeConfig: RangeConfig?,
+    day: @Composable (DayState) -> Unit,
+) {
+    val isWeekdayLabel = state.showWeekdays && iteration < weekDaysCount
+    val previousMonthDay =
+        iteration >= weekDaysCount && iteration < weekDaysCount + previousMonthDays
+    val nextMonthDay =
+        iteration >= weekDaysCount + previousMonthDays + daysInCurrentMonth
+    var newDate = LocalDate(year = yearMonth.year, month = yearMonth.month, dayOfMonth = 1)
 
-            if (state.showWeekdays && iteration + state.dayOfWeekOffset < 7 + state.dayOfWeekOffset) {
-                val dayOfWeekIndex =
-                    if (iteration + state.dayOfWeekOffset >= DayOfWeek.entries.size) {
-                        iteration + state.dayOfWeekOffset - DayOfWeek.entries.size
-                    } else if (iteration + state.dayOfWeekOffset < 0) {
-                        DayOfWeek.entries.size + iteration + state.dayOfWeekOffset
-                    } else {
-                        iteration + state.dayOfWeekOffset
-                    }
-                dayOfWeekLabel(DayOfWeek.entries[dayOfWeekIndex])
-            } else if ((!state.showPreviousMonthDays && previousMonthDay) || (!state.showNextMonthDays && nextMonthDay)) {
-                Text("")
+    if (previousMonthDay && config.value.showPreviousMonthDays) {
+        newDate =
+            newDate.plus(iteration - weekDaysCount - previousMonthDays, DateTimeUnit.DAY)
+    } else if (nextMonthDay && config.value.showNextMonthDays) {
+        newDate =
+            newDate
+                .plus(1, DateTimeUnit.MONTH)
+                .plus(
+                    iteration - previousMonthDays - weekDaysCount - daysInCurrentMonth,
+                    DateTimeUnit.DAY,
+                )
+    } else if (!isWeekdayLabel) {
+        newDate =
+            newDate.plus(iteration - previousMonthDays - weekDaysCount, DateTimeUnit.DAY)
+    }
+    newDate = newDate.plus(state.dayOfWeekOffset, DateTimeUnit.DAY)
+
+    if (state.showWeekdays && iteration + state.dayOfWeekOffset < 7 + state.dayOfWeekOffset) {
+        val dayOfWeekIndex =
+            if (iteration + state.dayOfWeekOffset >= DayOfWeek.entries.size) {
+                iteration + state.dayOfWeekOffset - DayOfWeek.entries.size
+            } else if (iteration + state.dayOfWeekOffset < 0) {
+                DayOfWeek.entries.size + iteration + state.dayOfWeekOffset
             } else {
-                Box(
-                    modifier =
-                        Modifier.passTouchGesture {
-                            val selectionList = selectDate(date = newDate, mode = selectionMode, list = config.value.selectedDates)
-                            config.value = config.value.copy(selectedDates = selectionList)
-                            onDateSelected(config.value.selectedDates)
-                        },
-                ) {
-                    day(
-                        DayState(
-                            date = newDate,
-                            isActiveDay = isActiveDay(newDate),
-                            isForPreviousMonth = previousMonthDay,
-                            isForNextMonth = nextMonthDay,
-                            enabled = newDate >= state.minDate && newDate <= state.maxDate,
-                        ),
-                    )
-                }
+                iteration + state.dayOfWeekOffset
             }
+        dayOfWeekLabel(DayOfWeek.entries[dayOfWeekIndex])
+    } else if ((!state.showPreviousMonthDays && previousMonthDay) || (!state.showNextMonthDays && nextMonthDay)) {
+        Text("")
+    } else {
+        val selectedDates = config.value.selectedDates
+        Box(
+            modifier =
+                Modifier
+                    .passTouchGesture {
+                        val selectionList =
+                            selectDate(
+                                date = newDate,
+                                mode = selectionMode,
+                                list = selectedDates,
+                            )
+                        config.value = config.value.copy(selectedDates = selectionList)
+                        onDateSelected(selectionList)
+                    }
+                    .drawRange(
+                        selectedDates = selectedDates,
+                        date = newDate,
+                        config = rangeConfig,
+                    ),
+        ) {
+            day(
+                DayState(
+                    date = newDate,
+                    isActiveDay = isActiveDay(newDate),
+                    isForPreviousMonth = previousMonthDay,
+                    isForNextMonth = nextMonthDay,
+                    enabled = newDate >= state.minDate && newDate <= state.maxDate,
+                ),
+            )
         }
     }
 }
@@ -165,8 +213,9 @@ private fun selectDate(
 
         SelectionMode.Range -> {
             result.add(0, date)
-            if (result.size >= 2) {
-                result.removeLast()
+            if (result.size > 2) {
+                result.clear()
+                result.add(0, date)
             }
         }
 

@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
+import io.wojciechosak.calendar.config.SelectionMode
 import io.wojciechosak.calendar.config.rememberCalendarState
 import io.wojciechosak.calendar.utils.today
 import io.wojciechosak.calendar.view.CalendarView
@@ -38,6 +39,7 @@ class MultipleSelectionScreen : Screen {
                         selectedDates.clear()
                         selectedDates.addAll(it)
                     },
+                    selectionMode = SelectionMode.Multiply(3),
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))
