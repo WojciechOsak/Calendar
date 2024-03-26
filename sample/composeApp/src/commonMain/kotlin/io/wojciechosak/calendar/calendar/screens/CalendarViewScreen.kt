@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeGesturesPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
@@ -32,26 +31,24 @@ class CalendarViewScreen : NamedScreen {
 
     @Composable
     override fun Content() {
-        Box(Modifier.safeGesturesPadding()) {
-            CalendarView(
-                day = { state ->
-                    DayView(
-                        date = state.date,
-                        isDotVisible = state.isActiveDay || Random.nextBoolean(),
-                        onClick = { },
-                    )
-                },
-                config =
-                    rememberCalendarState(
-                        startDate = MonthYear(year = 1994, month = Month.APRIL).toLocalDate(),
-                        monthOffset = 0,
-                        showNextMonthDays = false,
-                        showPreviousMonthDays = false,
-                        showHeader = false,
-                        showWeekdays = false,
-                    ),
-            )
-        }
+        CalendarView(
+            day = { state ->
+                DayView(
+                    date = state.date,
+                    isDotVisible = state.isActiveDay || Random.nextBoolean(),
+                    onClick = { },
+                )
+            },
+            config =
+                rememberCalendarState(
+                    startDate = MonthYear(year = 1994, month = Month.APRIL).toLocalDate(),
+                    monthOffset = 0,
+                    showNextMonthDays = false,
+                    showPreviousMonthDays = false,
+                    showHeader = false,
+                    showWeekdays = false,
+                ),
+        )
     }
 }
 

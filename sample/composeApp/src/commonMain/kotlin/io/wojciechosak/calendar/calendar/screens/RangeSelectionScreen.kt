@@ -45,9 +45,7 @@ class RangeSelectionScreen : NamedScreen {
                         selectedDates.addAll(it)
                     },
                     rangeConfig =
-                        RangeConfig(
-                            rangeIllustrator = RoundedRangeIllustrator(Pallete.LightGreen),
-                        ),
+                        RangeConfig(rangeIllustrator = RoundedRangeIllustrator(Pallete.LightGreen)),
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))

@@ -33,7 +33,9 @@ fun YearPicker(
     pageSize: PageSize = PageSize.Fill,
     onYearSelected: (Int) -> Unit = {},
     yearView: @Composable (year: Int) -> Unit = { year ->
-        Text(year.toString(), modifier = Modifier.padding(32.dp))
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+            Text(year.toString(), modifier = Modifier.padding(35.dp))
+        }
     },
 ) {
     val pagerState =

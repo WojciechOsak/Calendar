@@ -2,6 +2,7 @@ package io.wojciechosak.calendar.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Text
@@ -73,37 +74,38 @@ fun CalendarView(
             },
         )
     }
+    Column {
+        if (config.value.showHeader) {
+            header(yearMonth.month, yearMonth.year)
+        }
 
-    if (config.value.showHeader) {
-        header(yearMonth.month, yearMonth.year)
-    }
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(7),
+            horizontalArrangement = horizontalArrangement,
+            verticalArrangement = verticalArrangement,
+            userScrollEnabled = false,
+            modifier = modifier,
+        ) {
+            val state = config.value
+            val weekDaysCount = if (state.showWeekdays) 7 else 0
 
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(7),
-        horizontalArrangement = horizontalArrangement,
-        verticalArrangement = verticalArrangement,
-        userScrollEnabled = false,
-        modifier = modifier,
-    ) {
-        val state = config.value
-        val weekDaysCount = if (state.showWeekdays) 7 else 0
-
-        items(previousMonthDays + daysInCurrentMonth + nextMonthDays + weekDaysCount) { iteration ->
-            Item(
-                iteration = iteration,
-                config = config,
-                weekDaysCount = weekDaysCount,
-                previousMonthDays = previousMonthDays,
-                daysInCurrentMonth = daysInCurrentMonth,
-                dayOfWeekLabel = dayOfWeekLabel,
-                yearMonth = yearMonth,
-                state = state,
-                selectionMode = selectionMode,
-                onDateSelected = onDateSelected,
-                isActiveDay = isActiveDay,
-                rangeConfig = rangeConfig,
-                day = day,
-            )
+            items(previousMonthDays + daysInCurrentMonth + nextMonthDays + weekDaysCount) { iteration ->
+                Item(
+                    iteration = iteration,
+                    config = config,
+                    weekDaysCount = weekDaysCount,
+                    previousMonthDays = previousMonthDays,
+                    daysInCurrentMonth = daysInCurrentMonth,
+                    dayOfWeekLabel = dayOfWeekLabel,
+                    yearMonth = yearMonth,
+                    state = state,
+                    selectionMode = selectionMode,
+                    onDateSelected = onDateSelected,
+                    isActiveDay = isActiveDay,
+                    rangeConfig = rangeConfig,
+                    day = day,
+                )
+            }
         }
     }
 }
@@ -170,7 +172,7 @@ private fun Item(
                             selectDate(
                                 date = newDate,
                                 mode = selectionMode,
-                                list = selectedDates,
+                                list = config.value.selectedDates,
                             )
                         config.value = config.value.copy(selectedDates = selectionList)
                         onDateSelected(selectionList)
@@ -202,7 +204,6 @@ private fun selectDate(
     if (list.firstOrNull() == date) return list
     val result = mutableListOf<LocalDate>()
     result.addAll(list)
-
     when (mode) {
         is SelectionMode.Multiply -> {
             result.add(0, date)

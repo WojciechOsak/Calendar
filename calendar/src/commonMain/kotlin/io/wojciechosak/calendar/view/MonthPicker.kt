@@ -2,26 +2,38 @@ package io.wojciechosak.calendar.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import io.wojciechosak.calendar.modifiers.passTouchGesture
 import kotlinx.datetime.Month
 
 @Composable
 fun MonthPicker(
     columns: Int = 4,
-    horizontalArrangement: Arrangement.Horizontal = Arrangement.Center,
+    horizontalArrangement: Alignment.Horizontal = Alignment.CenterHorizontally,
     verticalArrangement: Arrangement.Vertical = Arrangement.Center,
     modifier: Modifier = Modifier,
     userScrollEnabled: Boolean = true,
     monthCount: Int = 12,
     onMonthSelected: (Month) -> Unit = {},
     monthView: @Composable (month: Month) -> Unit = { month ->
-        Text(month.name)
+        Column(
+            verticalArrangement = verticalArrangement,
+            horizontalAlignment = horizontalArrangement,
+            modifier = Modifier.aspectRatio(1f),
+        ) {
+            Text(
+                month.name,
+                textAlign = TextAlign.Center,
+            )
+        }
     },
 ) {
     require(monthCount in 0..12) {
@@ -29,8 +41,6 @@ fun MonthPicker(
     }
     LazyVerticalGrid(
         columns = GridCells.Fixed(columns),
-        horizontalArrangement = horizontalArrangement,
-        verticalArrangement = verticalArrangement,
         userScrollEnabled = userScrollEnabled,
         modifier = modifier,
     ) {
@@ -39,11 +49,7 @@ fun MonthPicker(
             Box(
                 modifier =
                     Modifier.passTouchGesture {
-                        selectedMonth?.let { month ->
-                            onMonthSelected(
-                                month,
-                            )
-                        }
+                        selectedMonth?.let { month -> onMonthSelected(month) }
                     },
                 contentAlignment = Alignment.Center,
             ) {

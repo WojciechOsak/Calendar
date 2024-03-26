@@ -46,13 +46,86 @@ Features:
 | Web(Wasm) |     ✅     |
 |  Desktop  |     ✅     |
 
-# Usage
+# Setup
 
+[![Maven Central](https://img.shields.io/badge/dynamic/xml.svg?label=Maven%20Central&color=blue&url=https://repo1.maven.org/maven2/io/github/wojciechosak/calendar/maven-metadata.xml&query=(//metadata/versioning/versions/version)[not(contains(text(),%27-%27))][last()])](https://repo1.maven.org/maven2/io/github/wojciechosak/calendar/)
 
+In Android project: 
 
-# Documentation:
+```groovy
+dependencies {
+  implementation 'io.github.wojciechosak:calendar:<latest-version>'
+}
+```
 
-Documentation can be found here: 
+In Kotlin Multiplatform project:
+
+```groovy
+commonMain.dependencies {
+  implementation 'io.github.wojciechosak:calendar:<latest-version>'
+}
+```
+
+```kotlin
+CalendarView(
+  config = rememberCalendarState(
+    startDate = LocalDate.today(),
+    monthOffset = 0
+  ),
+  day = { dayState ->
+    // define your day composable here!
+  }
+)
+```
+
+# Composables
+
+Simply use in Compose any view you want: 
+
+|   View type    |                      Preview                       |
+|:--------------:|:--------------------------------------------------:|
+|  CalendarView  | <img src="readme/calendar-view.png" height="250"/> |
+| HorizontalView |  <img src="readme/horizontal.gif" height="250"/>   |
+|  VerticalView  |   <img src="readme/vertical.gif" height="250"/>    |
+|    WeekView    |   <img src="readme/weekview.gif" height="250"/>    |
+|  MonthPicker   |  <img src="readme/monthpicker.png" height="250"/>  |
+|   YearPicker   |  <img src="readme/yearpicker.gif" height="250"/>   |
+
+Each view get as parameter day cell composable. Thanks to that your calendar can look whatever you like:
+<img src="readme/sample1.png" height="250"/>
+<img src="readme/sample2.png" height="250"/>
+
+## Range selection:
+
+```kotlin
+CalendarView(
+  config = rememberCalendarState(
+    startDate = startDate,
+    monthOffset = monthOffset,
+  ),
+  selectionMode = SelectionMode.Range,
+  rangeConfig = RangeConfig(rangeIllustrator = RoundedRangeIllustrator(Pallete.LightGreen)),
+)
+```
+
+ <img src="readme/range.png" height="250"/> 
+
+You can draw yourself implementations of RangeIllustrator, or use predefined `RoundedRangeIllustrator` 
+and `UnderlineIllustrator`.
+
+## Selection callbacks:
+
+```kotlin
+CalendarView(
+  config = ...,
+  onDateSelected = { date ->
+    // date: List<LocalDate>
+  },
+  selectionMode = SelectionMode.Multiply(3) // SelectionMode.Single or SelectionMode.Range
+)
+```
+
+---
 
 # Sample project:
 

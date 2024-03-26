@@ -2,14 +2,7 @@ package io.wojciechosak.calendar.calendar.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import io.wojciechosak.calendar.config.SelectionMode
 import io.wojciechosak.calendar.config.rememberCalendarState
 import io.wojciechosak.calendar.utils.today
@@ -26,27 +19,18 @@ class MultipleSelectionScreen : NamedScreen {
     override fun Content() {
         Column {
             val startDate = LocalDate.today()
-            val selectedDates = remember { mutableStateListOf<LocalDate>() }
 
             HorizontalCalendarView(startDate = startDate) { monthOffset ->
+                val config =
+                    rememberCalendarState(
+                        startDate = startDate,
+                        monthOffset = monthOffset,
+                    )
                 CalendarView(
-                    config =
-                        rememberCalendarState(
-                            startDate = startDate,
-                            monthOffset = monthOffset,
-                            selectedDates = selectedDates,
-                        ),
-                    isActiveDay = { it in selectedDates },
-                    onDateSelected = {
-                        selectedDates.clear()
-                        selectedDates.addAll(it)
-                    },
+                    config = config,
+                    isActiveDay = { it in config.value.selectedDates },
                     selectionMode = SelectionMode.Multiply(3),
                 )
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-            if (selectedDates.isNotEmpty()) {
-                Text("Selected:\n${selectedDates.map { "$it\n" }}")
             }
         }
     }

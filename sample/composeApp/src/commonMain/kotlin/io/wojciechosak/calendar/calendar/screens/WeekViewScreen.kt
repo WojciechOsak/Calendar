@@ -2,7 +2,6 @@ package io.wojciechosak.calendar.calendar.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -12,9 +11,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import io.wojciechosak.calendar.utils.daySimpleName
 import io.wojciechosak.calendar.utils.today
 import io.wojciechosak.calendar.view.CalendarDay
 import io.wojciechosak.calendar.view.WeekView
@@ -30,20 +30,16 @@ class WeekViewScreen : NamedScreen {
     @Composable
     override fun Content() {
         Column(modifier = Modifier.padding(10.dp)) {
-            var monthName by remember { mutableStateOf("") }
             var selectedDay by remember { mutableStateOf<LocalDate?>(null) }
 
-            Text(monthName, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
-
-            WeekView(
-                firstVisibleDate = {
-                    monthName = it.month.name
-                },
-            ) { state ->
-                CalendarDay(
-                    state,
-                    onClick = { },
-                )
+            WeekView { state ->
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(state.date.daySimpleName())
+                    CalendarDay(
+                        state,
+                        onClick = { },
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(20.dp))
