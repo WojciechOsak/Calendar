@@ -1,7 +1,7 @@
 # Compose Multiplatform Calendar
 
 <div style="text-align:center">
-    <img src="readme/baner.png" style="display:block; margin:auto;">
+    <img src="readme/baner.gif" style="display:block; margin:auto;">
 </div>
 
 [![Maven Central](https://img.shields.io/badge/dynamic/xml.svg?label=Maven%20Central&color=blue&url=https://repo1.maven.org/maven2/io/github/wojciechosak/calendar/maven-metadata.xml&query=(//metadata/versioning/versions/version)[not(contains(text(),%27-%27))][last()])](https://repo1.maven.org/maven2/io/github/wojciechosak/calendar/)
@@ -36,8 +36,6 @@ Features:
 |      Range selection       |     ✅     |
 
 ---
-
-
 
 # Platforms:
 
