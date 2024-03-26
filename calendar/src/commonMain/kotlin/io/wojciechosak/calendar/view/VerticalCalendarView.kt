@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.wojciechosak.calendar.animation.CalendarAnimator
 import io.wojciechosak.calendar.config.CalendarConstants.INITIAL_PAGE_INDEX
+import io.wojciechosak.calendar.config.CalendarConstants.MAX_PAGES
 import kotlinx.datetime.LocalDate
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -27,7 +28,7 @@ fun VerticalCalendarView(
     val pagerState =
         rememberPagerState(
             initialPage = INITIAL_PAGE_INDEX,
-            pageCount = { Int.MAX_VALUE },
+            pageCount = { MAX_PAGES },
         )
     LaunchedEffect(pagerState) {
         calendarAnimator.setAnimationMode(CalendarAnimator.AnimationMode.MONTH)

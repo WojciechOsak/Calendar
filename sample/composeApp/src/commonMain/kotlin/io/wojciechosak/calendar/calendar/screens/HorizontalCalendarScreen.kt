@@ -15,7 +15,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cafe.adriel.voyager.core.screen.Screen
 import io.wojciechosak.calendar.config.rememberCalendarState
 import io.wojciechosak.calendar.utils.today
 import io.wojciechosak.calendar.view.CalendarDay
@@ -23,7 +22,10 @@ import io.wojciechosak.calendar.view.CalendarView
 import io.wojciechosak.calendar.view.HorizontalCalendarView
 import kotlinx.datetime.LocalDate
 
-class HorizontalCalendarScreen : Screen {
+class HorizontalCalendarScreen : NamedScreen {
+    override val name: String
+        get() = "Horizontal calendar"
+
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     override fun Content() {

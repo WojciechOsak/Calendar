@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeGesturesPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
@@ -17,7 +18,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cafe.adriel.voyager.core.screen.Screen
 import io.wojciechosak.calendar.config.MonthYear
 import io.wojciechosak.calendar.config.rememberCalendarState
 import io.wojciechosak.calendar.config.toLocalDate
@@ -26,27 +26,32 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 import kotlin.random.Random
 
-class CalendarViewScreen : Screen {
+class CalendarViewScreen : NamedScreen {
+    override val name: String
+        get() = "CalendarView"
+
     @Composable
     override fun Content() {
-        CalendarView(
-            day = { state ->
-                DayView(
-                    date = state.date,
-                    isDotVisible = state.isActiveDay || Random.nextBoolean(),
-                    onClick = { },
-                )
-            },
-            config =
-                rememberCalendarState(
-                    startDate = MonthYear(year = 1994, month = Month.APRIL).toLocalDate(),
-                    monthOffset = 0,
-                    showNextMonthDays = false,
-                    showPreviousMonthDays = false,
-                    showHeader = false,
-                    showWeekdays = false,
-                ),
-        )
+        Box(Modifier.safeGesturesPadding()) {
+            CalendarView(
+                day = { state ->
+                    DayView(
+                        date = state.date,
+                        isDotVisible = state.isActiveDay || Random.nextBoolean(),
+                        onClick = { },
+                    )
+                },
+                config =
+                    rememberCalendarState(
+                        startDate = MonthYear(year = 1994, month = Month.APRIL).toLocalDate(),
+                        monthOffset = 0,
+                        showNextMonthDays = false,
+                        showPreviousMonthDays = false,
+                        showHeader = false,
+                        showWeekdays = false,
+                    ),
+            )
+        }
     }
 }
 

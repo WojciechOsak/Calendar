@@ -12,7 +12,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
 import io.wojciechosak.calendar.config.rememberCalendarState
 import io.wojciechosak.calendar.utils.today
 import io.wojciechosak.calendar.view.CalendarDay
@@ -20,7 +19,10 @@ import io.wojciechosak.calendar.view.CalendarView
 import io.wojciechosak.calendar.view.HorizontalCalendarView
 import kotlinx.datetime.LocalDate
 
-class SingleSelectionScreen : Screen {
+class SingleSelectionScreen : NamedScreen {
+    override val name: String
+        get() = "Single date selection"
+
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     override fun Content() {

@@ -14,7 +14,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
 import io.wojciechosak.calendar.animation.CalendarAnimator
 import io.wojciechosak.calendar.config.rememberCalendarState
 import io.wojciechosak.calendar.utils.daySimpleName
@@ -27,7 +26,10 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 
-class AnimationScreen : Screen {
+class AnimationScreen : NamedScreen {
+    override val name: String
+        get() = "Animations"
+
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     override fun Content() {

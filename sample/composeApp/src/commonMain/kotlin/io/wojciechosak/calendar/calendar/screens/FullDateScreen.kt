@@ -13,7 +13,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import cafe.adriel.voyager.core.screen.Screen
 import io.wojciechosak.calendar.config.SelectionMode
 import io.wojciechosak.calendar.config.rememberCalendarState
 import io.wojciechosak.calendar.utils.copy
@@ -25,7 +24,10 @@ import io.wojciechosak.calendar.view.MonthPicker
 import io.wojciechosak.calendar.view.YearPicker
 import kotlinx.datetime.LocalDate
 
-class FullDateScreen : Screen {
+class FullDateScreen : NamedScreen {
+    override val name: String
+        get() = "Full date selector"
+
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     override fun Content() {

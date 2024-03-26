@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.wojciechosak.calendar.config.CalendarConstants
+import io.wojciechosak.calendar.config.CalendarConstants.MAX_PAGES
 import io.wojciechosak.calendar.modifiers.passTouchGesture
 import io.wojciechosak.calendar.utils.today
 import kotlinx.datetime.LocalDate
@@ -38,7 +39,7 @@ fun YearPicker(
     val pagerState =
         rememberPagerState(
             initialPage = CalendarConstants.INITIAL_PAGE_INDEX,
-            pageCount = { Int.MAX_VALUE },
+            pageCount = { MAX_PAGES },
         )
     when (mode) {
         YearPickerMode.VERTICAL -> {

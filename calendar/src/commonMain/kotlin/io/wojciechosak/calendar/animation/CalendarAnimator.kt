@@ -39,7 +39,7 @@ class CalendarAnimator(private val startDate: LocalDate) {
         pageOffsetFraction: Float = 0f,
         animationSpec: AnimationSpec<Float> = spring(stiffness = Spring.StiffnessMediumLow),
     ) {
-        val initialPage = pagerState?.initialPage ?: INITIAL_PAGE_INDEX
+        val initialPage = INITIAL_PAGE_INDEX
         val currentDate =
             when (mode) {
                 AnimationMode.MONTH ->

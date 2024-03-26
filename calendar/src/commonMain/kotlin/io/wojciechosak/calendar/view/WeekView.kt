@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.wojciechosak.calendar.animation.CalendarAnimator
 import io.wojciechosak.calendar.config.CalendarConstants.INITIAL_PAGE_INDEX
+import io.wojciechosak.calendar.config.CalendarConstants.MAX_PAGES
 import io.wojciechosak.calendar.config.DayState
 import io.wojciechosak.calendar.utils.copy
 import io.wojciechosak.calendar.utils.daySimpleName
@@ -61,7 +62,7 @@ fun WeekView(
     },
 ) {
     val minIndex = if (showDaysBesideRange) 0 else minDate.daysUntil(startDate)
-    val maxIndex = if (showDaysBesideRange) Int.MAX_VALUE else startDate.daysUntil(maxDate)
+    val maxIndex = if (showDaysBesideRange) MAX_PAGES else startDate.daysUntil(maxDate)
     val initialPageIndex = if (showDaysBesideRange) INITIAL_PAGE_INDEX else minIndex + daysOffset
     LaunchedEffect(Unit) {
         calendarAnimator.setAnimationMode(CalendarAnimator.AnimationMode.WEEK)

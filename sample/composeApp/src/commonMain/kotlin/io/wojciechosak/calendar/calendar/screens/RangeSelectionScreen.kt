@@ -9,19 +9,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
 import io.wojciechosak.calendar.config.SelectionMode
 import io.wojciechosak.calendar.config.rememberCalendarState
 import io.wojciechosak.calendar.range.RangeConfig
-import io.wojciechosak.calendar.range.UnderlineIllustrator
+import io.wojciechosak.calendar.range.RoundedRangeIllustrator
+import io.wojciechosak.calendar.utils.Pallete
 import io.wojciechosak.calendar.utils.today
 import io.wojciechosak.calendar.view.CalendarView
 import io.wojciechosak.calendar.view.HorizontalCalendarView
 import kotlinx.datetime.LocalDate
 
-class RangeSelectionScreen : Screen {
+class RangeSelectionScreen : NamedScreen {
+    override val name: String
+        get() = "Range selection"
+
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     override fun Content() {
@@ -44,7 +46,7 @@ class RangeSelectionScreen : Screen {
                     },
                     rangeConfig =
                         RangeConfig(
-                            rangeIllustrator = UnderlineIllustrator(Color.Green),
+                            rangeIllustrator = RoundedRangeIllustrator(Pallete.LightGreen),
                         ),
                 )
             }

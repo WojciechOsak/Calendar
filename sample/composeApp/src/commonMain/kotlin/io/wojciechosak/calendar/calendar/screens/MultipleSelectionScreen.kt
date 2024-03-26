@@ -10,7 +10,6 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
 import io.wojciechosak.calendar.config.SelectionMode
 import io.wojciechosak.calendar.config.rememberCalendarState
 import io.wojciechosak.calendar.utils.today
@@ -18,7 +17,10 @@ import io.wojciechosak.calendar.view.CalendarView
 import io.wojciechosak.calendar.view.HorizontalCalendarView
 import kotlinx.datetime.LocalDate
 
-class MultipleSelectionScreen : Screen {
+class MultipleSelectionScreen : NamedScreen {
+    override val name: String
+        get() = "Multiple dates selector"
+
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     override fun Content() {
