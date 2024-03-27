@@ -23,7 +23,7 @@ import kotlinx.datetime.LocalDate
  * @param modifier The modifier for styling and layout of the calendar.
  * @param pageSize The size of each page in the calendar. Default is [PageSize.Fill].
  * @param contentPadding The padding applied around the content of the calendar.
- * @param beyondBoundsPageCount The number of pages to keep loaded beyond the visible bounds. Default is 3.
+ * @param beyondBoundsPageCount The number of pages to keep loaded beyond the visible bounds. Default is 0.
  * @param calendarView The composable function to display the content of each calendar page.
  */
 @OptIn(ExperimentalFoundationApi::class)
@@ -34,7 +34,7 @@ fun VerticalCalendarView(
     modifier: Modifier = Modifier,
     pageSize: PageSize = PageSize.Fill,
     contentPadding: PaddingValues = PaddingValues(0.dp),
-    beyondBoundsPageCount: Int = 3,
+    beyondBoundsPageCount: Int = 0,
     calendarView: @Composable (monthOffset: Int) -> Unit,
 ) {
     val pagerState =

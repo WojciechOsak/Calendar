@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.wojciechosak.calendar.config.rememberCalendarState
 import io.wojciechosak.calendar.utils.today
-import io.wojciechosak.calendar.view.CalendarDay
 import io.wojciechosak.calendar.view.CalendarView
 import io.wojciechosak.calendar.view.HorizontalCalendarView
 import kotlinx.datetime.LocalDate
@@ -31,28 +30,13 @@ class HorizontalCalendarScreen : NamedScreen {
     override fun Content() {
         val startDate = LocalDate.today()
         Column {
-            HorizontalCalendarView(startDate = startDate) { monthOffset ->
-                CalendarView(
-                    day = { dayState ->
-                        CalendarDay(
-                            state = dayState,
-                            onClick = { },
-                        )
-                    },
-                    config =
-                    rememberCalendarState(
-                        startDate = startDate,
-                        monthOffset = monthOffset,
-                    ),
-                )
-            }
+            HorizontalCalendarView(startDate = startDate)
             HorizontalCalendarView(startDate = startDate) { monthOffset ->
                 CalendarView(
                     day = { dayState ->
                         SquareDay(dayState.date)
                     },
-                    config =
-                    rememberCalendarState(
+                    config = rememberCalendarState(
                         startDate = startDate,
                         monthOffset = monthOffset,
                     ),

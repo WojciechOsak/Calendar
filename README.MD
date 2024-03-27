@@ -98,6 +98,21 @@ Each view get as parameter day cell composable. Thanks to that your calendar can
 <img src="readme/sample1.png" height="250"/>
 <img src="readme/sample2.png" height="250"/>
 
+
+Basic horizontal scrollable view: 
+
+```kotlin
+HorizontalCalendarView(startDate = startDate) { monthOffset ->
+  CalendarView(
+    config = rememberCalendarState(
+      startDate = startDate,
+      monthOffset = monthOffset,
+    ),
+  )
+}
+
+```
+
 ## Range selection:
 
 ```kotlin
