@@ -14,6 +14,11 @@ import kotlinx.datetime.periodUntil
 import kotlinx.datetime.plus
 import kotlin.math.floor
 
+/**
+ * Class for animating the transition between dates in a calendar.
+ *
+ * @property startDate The initial start date of the calendar.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 class CalendarAnimator(private val startDate: LocalDate) {
     enum class AnimationMode {
@@ -26,7 +31,7 @@ class CalendarAnimator(private val startDate: LocalDate) {
 
     private var mode: AnimationMode = AnimationMode.MONTH
 
-    fun updatePagerState(pagerState: PagerState) {
+    internal fun updatePagerState(pagerState: PagerState) {
         this.pagerState = pagerState
     }
 

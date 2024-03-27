@@ -31,6 +31,20 @@ import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
 
+/**
+ * Composable function to display a week view with selectable days.
+ *
+ * @param startDate The start date of the week view. Default is the current date.
+ * @param minDate The minimum selectable date in the week view. Default is three months before the start date.
+ * @param maxDate The maximum selectable date in the week view. Default is three months after the end date of the month containing the start date.
+ * @param daysOffset The offset in days from the start date. Default is 0.
+ * @param showDaysBesideRange Whether to show days beside the range. Default is true.
+ * @param calendarAnimator The animator used for animating calendar transitions.
+ * @param isActive A lambda function to determine if a date is considered active. Default is comparison with the current date.
+ * @param modifier The modifier for styling and layout of the week view.
+ * @param firstVisibleDate A callback invoked with the first visible date in the week view.
+ * @param day The composable function to display each day item in the week view.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WeekView(

@@ -21,6 +21,19 @@ import io.wojciechosak.calendar.modifiers.passTouchGesture
 import io.wojciechosak.calendar.utils.today
 import kotlinx.datetime.LocalDate
 
+/**
+ * Composable function to display a year picker with selectable years.
+ *
+ * @param columns The number of columns in the grid layout of the year picker. Default is 4.
+ * @param rows The number of rows in the grid layout of the year picker. Default is 3.
+ * @param startDate The start date of the year picker. Default is the current date.
+ * @param mode The mode of the year picker. Default is [YearPickerMode.HORIZONTAL].
+ * @param yearOffset The offset in years from the start date. Default is 0.
+ * @param modifier The modifier for styling and layout of the year picker.
+ * @param pageSize The size of each page in the year picker. Default is [PageSize.Fill].
+ * @param onYearSelected The callback invoked when a year is selected.
+ * @param yearView The composable function to display each year item in the picker.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun YearPicker(

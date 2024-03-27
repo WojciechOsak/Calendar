@@ -10,6 +10,19 @@ import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.plus
 
+/**
+ * Data class representing the configuration of a calendar.
+ *
+ * @property minDate The minimum date selectable in the calendar.
+ * @property maxDate The maximum date selectable in the calendar.
+ * @property monthYear The month and year currently displayed in the calendar.
+ * @property dayOfWeekOffset The offset to align the start of the week.
+ * @property showNextMonthDays Whether to show days from the next month in the calendar.
+ * @property showPreviousMonthDays Whether to show days from the previous month in the calendar.
+ * @property showHeader Whether to show the header displaying the month and year.
+ * @property showWeekdays Whether to show the weekdays header.
+ * @property selectedDates The list of selected dates in the calendar.
+ */
 @Stable
 data class CalendarConfig(
     val minDate: LocalDate,
@@ -23,6 +36,21 @@ data class CalendarConfig(
     val selectedDates: List<LocalDate>,
 )
 
+/**
+ * Composable function to remember the state of a calendar.
+ *
+ * @param startDate The initial date of the calendar.
+ * @param minDate The minimum date selectable in the calendar. Default is January 1, 1971.
+ * @param maxDate The maximum date selectable in the calendar. Default is 15 years from the start date.
+ * @param monthOffset The offset in months from the start date to determine the initial visible month.
+ * @param dayOfWeekOffset The offset to align the start of the week. Default is 0 (Monday).
+ * @param showNextMonthDays Whether to show days from the next month in the calendar. Default is true.
+ * @param showPreviousMonthDays Whether to show days from the previous month in the calendar. Default is true.
+ * @param showHeader Whether to show the header displaying the month and year. Default is true.
+ * @param showWeekdays Whether to show the weekdays header. Default is true.
+ * @param selectedDates The list of selected dates in the calendar. Default is an empty mutable list.
+ * @return A mutable state holding the configuration of the calendar.
+ */
 @Composable
 fun rememberCalendarState(
     startDate: LocalDate,

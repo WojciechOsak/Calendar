@@ -14,6 +14,19 @@ import androidx.compose.ui.text.style.TextAlign
 import io.wojciechosak.calendar.modifiers.passTouchGesture
 import kotlinx.datetime.Month
 
+/**
+ * Composable function to display a month picker with selectable months.
+ * View is displayed as scrollable list.
+ *
+ * @param columns The number of columns in the grid layout of the month picker. Default is 4.
+ * @param horizontalArrangement The horizontal alignment of items in the grid layout. Default is [Alignment.CenterHorizontally].
+ * @param verticalArrangement The vertical arrangement of items in the grid layout. Default is [Arrangement.Center].
+ * @param modifier The modifier for styling and layout of the month picker.
+ * @param userScrollEnabled Whether scrolling is enabled for the month picker. Default is true.
+ * @param monthCount The total number of months to display in the picker. Default is 12.
+ * @param onMonthSelected The callback invoked when a month is selected.
+ * @param monthView The composable function to display each month item in the picker.
+ */
 @Composable
 fun MonthPicker(
     columns: Int = 4,

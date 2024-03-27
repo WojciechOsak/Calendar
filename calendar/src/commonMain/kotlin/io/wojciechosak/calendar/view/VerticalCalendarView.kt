@@ -15,6 +15,17 @@ import io.wojciechosak.calendar.config.CalendarConstants.INITIAL_PAGE_INDEX
 import io.wojciechosak.calendar.config.CalendarConstants.MAX_PAGES
 import kotlinx.datetime.LocalDate
 
+/**
+ * Composable function to display a vertical calendar view.
+ *
+ * @param startDate The start date of the calendar.
+ * @param calendarAnimator The animator used for animating calendar transitions.
+ * @param modifier The modifier for styling and layout of the calendar.
+ * @param pageSize The size of each page in the calendar. Default is [PageSize.Fill].
+ * @param contentPadding The padding applied around the content of the calendar.
+ * @param beyondBoundsPageCount The number of pages to keep loaded beyond the visible bounds. Default is 3.
+ * @param calendarView The composable function to display the content of each calendar page.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun VerticalCalendarView(

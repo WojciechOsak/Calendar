@@ -29,6 +29,21 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 import kotlinx.datetime.plus
 
+/**
+ * Composable function to display a single month calendar.
+ *
+ * @param config A mutable state representing the configuration of the calendar.
+ * @param horizontalArrangement Arrangement for horizontal alignment of items in the calendar grid. Default is [Arrangement.SpaceEvenly].
+ * @param verticalArrangement Arrangement for vertical alignment of items in the calendar grid. Default is [Arrangement.SpaceEvenly].
+ * @param isActiveDay A lambda function to determine if a date is considered active. Default is a comparison with the current date.
+ * @param day A composable function to display a single calendar day.
+ * @param header A composable function to display the header of the calendar (e.g., month and year).
+ * @param dayOfWeekLabel A composable function to display labels for the days of the week.
+ * @param selectionMode The selection mode for the calendar dates. Default is [SelectionMode.Single].
+ * @param onDateSelected A callback function invoked when a date is selected.
+ * @param rangeConfig Configuration for rendering date range selections.
+ * @param modifier Modifier for styling and layout of the calendar.
+ */
 @Composable
 fun CalendarView(
     config: MutableState<CalendarConfig>,
@@ -48,7 +63,7 @@ fun CalendarView(
             textAlign = TextAlign.Center,
         )
     },
-    selectionMode: SelectionMode = SelectionMode.Multiply(3),
+    selectionMode: SelectionMode = SelectionMode.Single,
     onDateSelected: (List<LocalDate>) -> Unit = {},
     rangeConfig: RangeConfig? = null,
     modifier: Modifier = Modifier,

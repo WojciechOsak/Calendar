@@ -11,6 +11,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.datetime.Month
 
+/**
+ * Default Month header used to display month as text.
+ */
 @Composable
 fun MonthHeader(
     month: Month,

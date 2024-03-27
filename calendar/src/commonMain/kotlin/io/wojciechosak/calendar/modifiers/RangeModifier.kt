@@ -6,6 +6,14 @@ import androidx.compose.ui.draw.drawBehind
 import io.wojciechosak.calendar.range.RangeConfig
 import kotlinx.datetime.LocalDate
 
+/**
+ * Internal function to modify the drawing behavior to illustrate date ranges.
+ *
+ * @param date The date to modify the drawing for.
+ * @param selectedDates The list of selected dates.
+ * @param config The configuration for drawing the range. Default is null.
+ * @return A modified modifier with the drawing behavior adjusted for illustrating date ranges.
+ */
 internal fun Modifier.drawRange(
     date: LocalDate,
     selectedDates: List<LocalDate>,

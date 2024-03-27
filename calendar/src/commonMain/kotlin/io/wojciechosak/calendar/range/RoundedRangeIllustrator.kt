@@ -4,9 +4,20 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 
+/**
+ * Class implementing the RangeIllustrator interface to illustrate date ranges with rounded corners.
+ *
+ * @param color The color used for illustrating the date range.
+ */
 class RoundedRangeIllustrator(
     private val color: Color,
 ) : RangeIllustrator {
+
+    /**
+     * Method to draw the end of a date range with rounded corners.
+     *
+     * @param drawScope The drawing scope used for rendering.
+     */
     override fun drawEnd(drawScope: DrawScope) {
         drawScope.apply {
             drawArc(
@@ -22,6 +33,11 @@ class RoundedRangeIllustrator(
         }
     }
 
+    /**
+     * Method to draw the start of a date range with rounded corners.
+     *
+     * @param drawScope The drawing scope used for rendering.
+     */
     override fun drawStart(drawScope: DrawScope) {
         drawScope.apply {
             drawArc(
@@ -38,6 +54,11 @@ class RoundedRangeIllustrator(
         }
     }
 
+    /**
+     * Method to draw the middle part of a date range with rounded corners.
+     *
+     * @param drawScope The drawing scope used for rendering.
+     */
     override fun drawMiddle(drawScope: DrawScope) {
         drawScope.apply {
             drawRect(color = color)

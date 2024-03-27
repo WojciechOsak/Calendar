@@ -15,7 +15,10 @@ calendar picker for any platform you want: Android, iOS, Desktop or even Web!
 ---
 
 <div style="text-align:center">
-    <img src="readme/info.png" style="display:block; margin:auto;" height="1400px">
+    <img src="readme/info.png" style="display:block; margin:auto;">
+</div>
+<div style="text-align:center">
+    <img src="readme/variants.png" style="display:block; margin:auto;">
 </div>
 
 Features:

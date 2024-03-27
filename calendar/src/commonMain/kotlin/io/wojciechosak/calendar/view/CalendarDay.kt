@@ -20,13 +20,20 @@ import androidx.compose.ui.unit.sp
 import io.wojciechosak.calendar.config.DayState
 import io.wojciechosak.calendar.utils.Pallete
 
+/**
+ * Composable function to display a calendar day.
+ *
+ * @param state The state of the day.
+ * @param interactionSource The interaction source for the view.
+ * @param onClick The callback to be invoked when the view is clicked.
+ * @param modifier The modifier for the view.
+ */
 @Composable
 fun CalendarDay(
     state: DayState,
     interactionSource: MutableInteractionSource = MutableInteractionSource(),
     onClick: () -> Unit = {},
     modifier: Modifier = Modifier,
-    secondRowText: String = "",
 ) = with(state) {
     OutlinedButton(
         onClick = onClick,
@@ -52,18 +59,6 @@ fun CalendarDay(
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
             )
-
-            if (secondRowText.isNotEmpty()) {
-                Text(
-                    secondRowText,
-                    color = Color.Gray,
-                    fontSize = 10.sp,
-                    modifier =
-                    Modifier.fillMaxWidth()
-                        .background(if (isActiveDay) Pallete.LightGreen else Color(0xefefef)),
-                    textAlign = TextAlign.Center,
-                )
-            }
         }
     }
 }
