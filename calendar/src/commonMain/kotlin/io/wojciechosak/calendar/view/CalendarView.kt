@@ -134,19 +134,16 @@ private fun Item(
     var newDate = LocalDate(year = yearMonth.year, month = yearMonth.month, dayOfMonth = 1)
 
     if (previousMonthDay && config.value.showPreviousMonthDays) {
-        newDate =
-            newDate.plus(iteration - weekDaysCount - previousMonthDays, DateTimeUnit.DAY)
+        newDate = newDate.plus(iteration - weekDaysCount - previousMonthDays, DateTimeUnit.DAY)
     } else if (nextMonthDay && config.value.showNextMonthDays) {
-        newDate =
-            newDate
-                .plus(1, DateTimeUnit.MONTH)
-                .plus(
-                    iteration - previousMonthDays - weekDaysCount - daysInCurrentMonth,
-                    DateTimeUnit.DAY,
-                )
+        newDate = newDate
+            .plus(1, DateTimeUnit.MONTH)
+            .plus(
+                iteration - previousMonthDays - weekDaysCount - daysInCurrentMonth,
+                DateTimeUnit.DAY,
+            )
     } else if (!isWeekdayLabel) {
-        newDate =
-            newDate.plus(iteration - previousMonthDays - weekDaysCount, DateTimeUnit.DAY)
+        newDate = newDate.plus(iteration - previousMonthDays - weekDaysCount, DateTimeUnit.DAY)
     }
     newDate = newDate.plus(state.dayOfWeekOffset, DateTimeUnit.DAY)
 
@@ -165,23 +162,19 @@ private fun Item(
     } else {
         val selectedDates = config.value.selectedDates
         Box(
-            modifier =
-                Modifier
-                    .passTouchGesture {
-                        val selectionList =
-                            selectDate(
-                                date = newDate,
-                                mode = selectionMode,
-                                list = config.value.selectedDates,
-                            )
-                        config.value = config.value.copy(selectedDates = selectionList)
-                        onDateSelected(selectionList)
-                    }
-                    .drawRange(
-                        selectedDates = selectedDates,
-                        date = newDate,
-                        config = rangeConfig,
-                    ),
+            modifier = Modifier.passTouchGesture {
+                val selectionList = selectDate(
+                    date = newDate,
+                    mode = selectionMode,
+                    list = config.value.selectedDates,
+                )
+                config.value = config.value.copy(selectedDates = selectionList)
+                onDateSelected(selectionList)
+            }.drawRange(
+                selectedDates = selectedDates,
+                date = newDate,
+                config = rangeConfig,
+            ),
         ) {
             day(
                 DayState(

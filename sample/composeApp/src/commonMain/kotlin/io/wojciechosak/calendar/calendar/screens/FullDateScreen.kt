@@ -72,10 +72,10 @@ class FullDateScreen : NamedScreen {
                     calendarView = { monthOffset ->
                         CalendarView(
                             config =
-                                rememberCalendarState(
-                                    startDate = date,
-                                    monthOffset = monthOffset,
-                                ),
+                            rememberCalendarState(
+                                startDate = date,
+                                monthOffset = monthOffset,
+                            ),
                             header = { month, year ->
                                 Box(modifier = Modifier.clickable { mode = DatePickerMode.MONTH }) {
                                     Text("Click -> ")

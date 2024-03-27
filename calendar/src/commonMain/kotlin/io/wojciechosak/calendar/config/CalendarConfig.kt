@@ -35,20 +35,18 @@ fun rememberCalendarState(
     showHeader: Boolean = true,
     showWeekdays: Boolean = true,
     selectedDates: MutableList<LocalDate> = mutableListOf(),
-): MutableState<CalendarConfig> {
-    return remember {
-        mutableStateOf(
-            CalendarConfig(
-                minDate = minDate,
-                maxDate = maxDate,
-                monthYear = startDate.plus(monthOffset, DateTimeUnit.MONTH).toMonthYear(),
-                dayOfWeekOffset = dayOfWeekOffset,
-                showNextMonthDays = showNextMonthDays,
-                showPreviousMonthDays = showPreviousMonthDays,
-                showHeader = showHeader,
-                showWeekdays = showWeekdays,
-                selectedDates = selectedDates,
-            ),
-        )
-    }
+): MutableState<CalendarConfig> = remember {
+    mutableStateOf(
+        CalendarConfig(
+            minDate = minDate,
+            maxDate = maxDate,
+            monthYear = startDate.plus(monthOffset, DateTimeUnit.MONTH).toMonthYear(),
+            dayOfWeekOffset = dayOfWeekOffset,
+            showNextMonthDays = showNextMonthDays,
+            showPreviousMonthDays = showPreviousMonthDays,
+            showHeader = showHeader,
+            showWeekdays = showWeekdays,
+            selectedDates = selectedDates,
+        ),
+    )
 }

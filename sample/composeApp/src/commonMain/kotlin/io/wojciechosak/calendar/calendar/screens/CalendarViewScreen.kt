@@ -40,14 +40,14 @@ class CalendarViewScreen : NamedScreen {
                 )
             },
             config =
-                rememberCalendarState(
-                    startDate = MonthYear(year = 1994, month = Month.APRIL).toLocalDate(),
-                    monthOffset = 0,
-                    showNextMonthDays = false,
-                    showPreviousMonthDays = false,
-                    showHeader = false,
-                    showWeekdays = false,
-                ),
+            rememberCalendarState(
+                startDate = MonthYear(year = 1994, month = Month.APRIL).toLocalDate(),
+                monthOffset = 0,
+                showNextMonthDays = false,
+                showPreviousMonthDays = false,
+                showHeader = false,
+                showWeekdays = false,
+            ),
         )
     }
 }
@@ -66,9 +66,9 @@ private fun DayView(
             contentPadding = PaddingValues(0.dp),
             border = BorderStroke(0.dp, Color.Transparent),
             colors =
-                ButtonDefaults.outlinedButtonColors(
-                    containerColor = Color(0xffdaa92a),
-                ),
+            ButtonDefaults.outlinedButtonColors(
+                containerColor = Color(0xffdaa92a),
+            ),
         ) {
             Text(
                 "${date.dayOfMonth}",
@@ -80,10 +80,10 @@ private fun DayView(
         if (isDotVisible) {
             Canvas(
                 modifier =
-                    Modifier
-                        .padding(bottom = 10.dp)
-                        .size(8.dp)
-                        .align(Alignment.BottomCenter),
+                Modifier
+                    .padding(bottom = 10.dp)
+                    .size(8.dp)
+                    .align(Alignment.BottomCenter),
                 onDraw = { drawCircle(color = Color(0xff2d2cb2)) },
             )
         }

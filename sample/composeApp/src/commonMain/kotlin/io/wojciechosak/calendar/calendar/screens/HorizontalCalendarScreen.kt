@@ -40,10 +40,10 @@ class HorizontalCalendarScreen : NamedScreen {
                         )
                     },
                     config =
-                        rememberCalendarState(
-                            startDate = startDate,
-                            monthOffset = monthOffset,
-                        ),
+                    rememberCalendarState(
+                        startDate = startDate,
+                        monthOffset = monthOffset,
+                    ),
                 )
             }
             HorizontalCalendarView(startDate = startDate) { monthOffset ->
@@ -52,10 +52,10 @@ class HorizontalCalendarScreen : NamedScreen {
                         SquareDay(dayState.date)
                     },
                     config =
-                        rememberCalendarState(
-                            startDate = startDate,
-                            monthOffset = monthOffset,
-                        ),
+                    rememberCalendarState(
+                        startDate = startDate,
+                        monthOffset = monthOffset,
+                    ),
                 )
             }
         }
@@ -66,10 +66,10 @@ class HorizontalCalendarScreen : NamedScreen {
 private fun SquareDay(date: LocalDate) {
     Column(
         modifier =
-            Modifier
-                .aspectRatio(1f)
-                .background(Color.Black)
-                .border(BorderStroke(1.dp, Color.White)),
+        Modifier
+            .aspectRatio(1f)
+            .background(Color.Black)
+            .border(BorderStroke(1.dp, Color.White)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

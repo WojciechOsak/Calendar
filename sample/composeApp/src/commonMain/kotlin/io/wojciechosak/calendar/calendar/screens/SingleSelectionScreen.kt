@@ -36,10 +36,10 @@ class SingleSelectionScreen : NamedScreen {
                         CalendarDay(state = dayState)
                     },
                     config =
-                        rememberCalendarState(
-                            startDate = startDate,
-                            monthOffset = monthOffset,
-                        ),
+                    rememberCalendarState(
+                        startDate = startDate,
+                        monthOffset = monthOffset,
+                    ),
                     isActiveDay = { it == selectedDate },
                     onDateSelected = { selectedDate = it.firstOrNull() },
                 )

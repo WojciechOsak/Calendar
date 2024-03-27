@@ -37,14 +37,14 @@ fun CalendarDay(
         interactionSource = interactionSource,
         enabled = enabled,
         colors =
-            ButtonDefaults.outlinedButtonColors(
-                contentColor =
-                    if (isForPreviousMonth || isForNextMonth) {
-                        Color.LightGray
-                    } else {
-                        if (isActiveDay) Pallete.LightGreen else Pallete.LightBlue
-                    },
-            ),
+        ButtonDefaults.outlinedButtonColors(
+            contentColor =
+            if (isForPreviousMonth || isForNextMonth) {
+                Color.LightGray
+            } else {
+                if (isActiveDay) Pallete.LightGreen else Pallete.LightBlue
+            },
+        ),
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
@@ -59,8 +59,8 @@ fun CalendarDay(
                     color = Color.Gray,
                     fontSize = 10.sp,
                     modifier =
-                        Modifier.fillMaxWidth()
-                            .background(if (isActiveDay) Pallete.LightGreen else Color(0xefefef)),
+                    Modifier.fillMaxWidth()
+                        .background(if (isActiveDay) Pallete.LightGreen else Color(0xefefef)),
                     textAlign = TextAlign.Center,
                 )
             }

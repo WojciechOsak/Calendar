@@ -31,10 +31,10 @@ internal fun App() {
                     val navigator = LocalNavigator.current
                     SmallTopAppBar(
                         colors =
-                            TopAppBarDefaults.topAppBarColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
-                                titleContentColor = Color.White,
-                            ),
+                        TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            titleContentColor = Color.White,
+                        ),
                         title = {
                             if (navigator?.canPop == true) {
                                 Text((navigator.lastItem as? NamedScreen)?.name ?: "", fontSize = 14.sp)

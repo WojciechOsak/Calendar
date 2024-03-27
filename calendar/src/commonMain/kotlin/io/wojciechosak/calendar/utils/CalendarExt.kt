@@ -8,13 +8,11 @@ import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
-fun isLeapYear(year: Int): Boolean {
-    return try {
-        LocalDate(year, 2, 29)
-        true
-    } catch (exception: IllegalArgumentException) {
-        false
-    }
+fun isLeapYear(year: Int): Boolean = try {
+    LocalDate(year, 2, 29)
+    true
+} catch (exception: IllegalArgumentException) {
+    false
 }
 
 fun monthLength(
@@ -29,30 +27,22 @@ fun monthLength(
     }
 }
 
-internal fun LocalDateTime.toLocalDate(): LocalDate {
-    return LocalDate(year, month, dayOfMonth)
-}
+internal fun LocalDateTime.toLocalDate(): LocalDate = LocalDate(year, month, dayOfMonth)
 
 fun LocalDate.copy(
     year: Int = this.year,
     month: Month = this.month,
     day: Int = this.dayOfMonth,
-): LocalDate {
-    return try {
-        LocalDate(year, month, day)
-    } catch (e: IllegalArgumentException) {
-        LocalDate(year, month, monthLength(month, year))
-    }
+): LocalDate = try {
+    LocalDate(year, month, day)
+} catch (e: IllegalArgumentException) {
+    LocalDate(year, month, monthLength(month, year))
 }
 
-fun LocalDate.Companion.today(): LocalDate {
-    return Clock.System.now()
-        .toLocalDateTime(TimeZone.currentSystemDefault())
-        .toLocalDate()
-}
+fun LocalDate.Companion.today(): LocalDate = Clock.System.now()
+    .toLocalDateTime(TimeZone.currentSystemDefault())
+    .toLocalDate()
 
-fun LocalDate.toMonthYear(): MonthYear {
-    return MonthYear(this.month, this.year)
-}
+fun LocalDate.toMonthYear(): MonthYear = MonthYear(this.month, this.year)
 
 fun LocalDate.daySimpleName() = dayOfWeek.name.substring(IntRange(0, 2))

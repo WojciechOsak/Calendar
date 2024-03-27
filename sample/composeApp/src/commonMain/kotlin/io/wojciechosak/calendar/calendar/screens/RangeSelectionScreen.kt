@@ -34,18 +34,18 @@ class RangeSelectionScreen : NamedScreen {
             HorizontalCalendarView(startDate = startDate) { monthOffset ->
                 CalendarView(
                     config =
-                        rememberCalendarState(
-                            startDate = startDate,
-                            monthOffset = monthOffset,
-                            selectedDates = selectedDates,
-                        ),
+                    rememberCalendarState(
+                        startDate = startDate,
+                        monthOffset = monthOffset,
+                        selectedDates = selectedDates,
+                    ),
                     selectionMode = SelectionMode.Range,
                     onDateSelected = {
                         selectedDates.clear()
                         selectedDates.addAll(it)
                     },
                     rangeConfig =
-                        RangeConfig(rangeIllustrator = RoundedRangeIllustrator(Pallete.LightGreen)),
+                    RangeConfig(rangeIllustrator = RoundedRangeIllustrator(Pallete.LightGreen)),
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))
