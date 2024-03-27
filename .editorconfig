@@ -4,3 +4,5 @@ root = true
 ktlint_code_style = intellij_idea
 ktlint_experimental=enabled
 ktlint_function_naming_ignore_when_annotated_with=Composable
+indent_style=tab
+ktlint_standard = disabled

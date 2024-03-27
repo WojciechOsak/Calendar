@@ -40,15 +40,6 @@ Features:
 
 ---
 
-# Platforms:
-
-| Platform  | Supported |
-|:---------:|:---------:|
-|  Android  |     ✅     |
-|    iOS    |     ✅     |
-| Web(Wasm) |     ✅     |
-|  Desktop  |     ✅     |
-
 # Setup
 
 [![Maven Central](https://img.shields.io/badge/dynamic/xml.svg?label=Maven%20Central&color=blue&url=https://repo1.maven.org/maven2/io/github/wojciechosak/calendar/maven-metadata.xml&query=(//metadata/versioning/versions/version)[not(contains(text(),%27-%27))][last()])](https://repo1.maven.org/maven2/io/github/wojciechosak/calendar/)
@@ -70,18 +61,40 @@ commonMain.dependencies {
 ```
 
 ```kotlin
-CalendarView(
-  config = rememberCalendarState(
-    startDate = LocalDate.today(),
-    monthOffset = 0
-  ),
-  day = { dayState ->
-    // define your day composable here!
-  }
-)
+HorizontalCalendarView(startDate = startDate) { monthOffset ->
+  CalendarView(
+    config = rememberCalendarState(
+      startDate = startDate,
+      monthOffset = 0
+    ),
+    day = { dayState ->
+      // define your day composable here!
+    }
+  )
+}
 ```
 
+Basic horizontal scrollable view:
+
+```kotlin
+HorizontalCalendarView(startDate = startDate) { monthOffset ->
+  CalendarView(
+    config = rememberCalendarState(
+      startDate = startDate,
+      monthOffset = monthOffset,
+    ),
+  )
+}
+```
+
+# Documentation
+
+Documentation can be found here: [docs.md](docs.md)
+
 # Composables
+
+<details>
+  <summary>List of available views</summary>
 
 Simply use in Compose any view you want: 
 
@@ -97,58 +110,18 @@ Simply use in Compose any view you want:
 Each view get as parameter day cell composable. Thanks to that your calendar can look whatever you like:
 <img src="readme/sample1.png" height="250"/>
 <img src="readme/sample2.png" height="250"/>
-
-
-Basic horizontal scrollable view: 
-
-```kotlin
-HorizontalCalendarView(startDate = startDate) { monthOffset ->
-  CalendarView(
-    config = rememberCalendarState(
-      startDate = startDate,
-      monthOffset = monthOffset,
-    ),
-  )
-}
-
-```
-
-## Range selection:
-
-```kotlin
-CalendarView(
-  config = rememberCalendarState(
-    startDate = startDate,
-    monthOffset = monthOffset,
-  ),
-  selectionMode = SelectionMode.Range,
-  rangeConfig = RangeConfig(rangeIllustrator = RoundedRangeIllustrator(Pallete.LightGreen)),
-)
-```
-
- <img src="readme/range.png" height="250"/> 
-
-You can draw yourself implementations of RangeIllustrator, or use predefined `RoundedRangeIllustrator` 
-and `UnderlineIllustrator`.
-
-## Selection callbacks:
-
-```kotlin
-CalendarView(
-  config = ...,
-  onDateSelected = { date ->
-    // date: List<LocalDate>
-  },
-  selectionMode = SelectionMode.Multiply(3) // SelectionMode.Single or SelectionMode.Range
-)
-```
+<img src="readme/range.png" height="250"/>
+</details>
 
 ---
 
-# Sample project:
+# Samples:
 
 In directory sample you can find bunch of examples. You can run Android/iOS application and test it 
 yourself. Below you can find instruction how to run sample project on your computer.
+
+<details>
+  <summary>Sample project</summary>
 
 ## Before running!
 
@@ -191,4 +164,4 @@ And build the project.
 ### Browser
 
 Run the browser application: `./gradlew :sample:composeApp:jsBrowserDevelopmentRun`
-
+</details>
