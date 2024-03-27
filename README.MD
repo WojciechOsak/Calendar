@@ -70,17 +70,32 @@ commonMain.dependencies {
 ```
 
 ```kotlin
-CalendarView(
-  config = rememberCalendarState(
-    startDate = LocalDate.today(),
-    monthOffset = 0
-  ),
-  day = { dayState ->
-    // define your day composable here!
-  }
-)
+HorizontalCalendarView(startDate = startDate) { monthOffset ->
+  CalendarView(
+    config = rememberCalendarState(
+      startDate = startDate,
+      monthOffset = 0
+    ),
+    day = { dayState ->
+      // define your day composable here!
+    }
+  )
+}
 ```
 
+Basic horizontal scrollable view:
+
+```kotlin
+HorizontalCalendarView(startDate = startDate) { monthOffset ->
+  CalendarView(
+    config = rememberCalendarState(
+      startDate = startDate,
+      monthOffset = monthOffset,
+    ),
+  )
+}
+
+```
 # Composables
 
 Simply use in Compose any view you want: 
@@ -97,51 +112,11 @@ Simply use in Compose any view you want:
 Each view get as parameter day cell composable. Thanks to that your calendar can look whatever you like:
 <img src="readme/sample1.png" height="250"/>
 <img src="readme/sample2.png" height="250"/>
+<img src="readme/range.png" height="250"/>
 
+## Documentation
 
-Basic horizontal scrollable view: 
-
-```kotlin
-HorizontalCalendarView(startDate = startDate) { monthOffset ->
-  CalendarView(
-    config = rememberCalendarState(
-      startDate = startDate,
-      monthOffset = monthOffset,
-    ),
-  )
-}
-
-```
-
-## Range selection:
-
-```kotlin
-CalendarView(
-  config = rememberCalendarState(
-    startDate = startDate,
-    monthOffset = monthOffset,
-  ),
-  selectionMode = SelectionMode.Range,
-  rangeConfig = RangeConfig(rangeIllustrator = RoundedRangeIllustrator(Pallete.LightGreen)),
-)
-```
-
- <img src="readme/range.png" height="250"/> 
-
-You can draw yourself implementations of RangeIllustrator, or use predefined `RoundedRangeIllustrator` 
-and `UnderlineIllustrator`.
-
-## Selection callbacks:
-
-```kotlin
-CalendarView(
-  config = ...,
-  onDateSelected = { date ->
-    // date: List<LocalDate>
-  },
-  selectionMode = SelectionMode.Multiply(3) // SelectionMode.Single or SelectionMode.Range
-)
-```
+Documentation can be found here: [docs.md](docs.md)
 
 ---
 
