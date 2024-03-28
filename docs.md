@@ -11,10 +11,12 @@ Composable function to display a horizontal calendar view.
 - `modifier`: The modifier for styling and layout of the calendar.
 - `pageSize`: The size of each page in the calendar. Default is `PageSize.Fill`.
 - `beyondBoundsPageCount`: The number of pages to keep loaded beyond the visible bounds. Default is
-  3.
+  1.
 - `contentPadding`: The padding applied around the content of the calendar.
 - `calendarAnimator`: The animator used for animating calendar transitions.
 - `calendarView`: The composable function to display the content of each calendar page.
+
+![sample3.png](readme/sample3.png)
 
 ## MonthPicker
 
@@ -33,6 +35,8 @@ Composable function to display a month picker with selectable months.
 - `onMonthSelected`: The callback invoked when a month is selected.
 - `monthView`: The composable function to display each month item in the picker.
 
+![img.png](readme/month.png)
+
 ## VerticalCalendarView
 
 Composable function to display a vertical calendar view.
@@ -45,7 +49,7 @@ Composable function to display a vertical calendar view.
 - `pageSize`: The size of each page in the calendar. Default is `PageSize.Fill`.
 - `contentPadding`: The padding applied around the content of the calendar.
 - `beyondBoundsPageCount`: The number of pages to keep loaded beyond the visible bounds. Default is
-  3.
+  1
 - `calendarView`: The composable function to display the content of each calendar page.
 
 ## WeekView
@@ -68,6 +72,23 @@ Composable function to display a week view with selectable days.
 - `firstVisibleDate`: A callback invoked with the first visible date in the week view.
 - `day`: The composable function to display each day item in the week view.
 
+### Code: 
+
+```kotlin
+ WeekView { state ->
+  Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Text(state.date.daySimpleName())
+    CalendarDay(
+      state,
+      onClick = { },
+    )
+  }
+}
+
+```
+
+![img.png](readme/week.png)
+
 ## YearPicker
 
 Composable function to display a year picker with selectable years.
@@ -83,6 +104,19 @@ Composable function to display a year picker with selectable years.
 - `pageSize`: The size of each page in the year picker. Default is `PageSize.Fill`.
 - `onYearSelected`: The callback invoked when a year is selected.
 - `yearView`: The composable function to display each year item in the picker.
+
+### Code: 
+
+```kotlin
+YearPicker(
+  onYearSelected = {
+    date = date.copy(year = it)
+    mode = DatePickerMode.DAY
+  },
+)
+```
+
+![img.png](readme/yearsample.png)
 
 ## Range selection:
 
@@ -109,8 +143,38 @@ and `UnderlineIllustrator`.
 CalendarView(
     config = ...,
 onDateSelected = { date ->
-    // date: List<LocalDate>
+    // date: List<LocalDate> <--- selected dates
 },
 selectionMode = SelectionMode.Multiply(3) // SelectionMode.Single or SelectionMode.Range
 )
 ```
+
+`onDateSelected()` will return: 
+- SelectionMode.Single - one element list 
+- SelectionMode.Multiply(N) - N elements list 
+- SelectionMode.Range - two elements list where first item is older than second item
+
+## Animations:
+
+You can animate calendar to scroll to desired date.
+
+```kotlin
+val startDate by remember { mutableStateOf(LocalDate.today()) }
+val calendarAnimator by remember { mutableStateOf(CalendarAnimator(startDate)) }
+val coroutineScope = rememberCoroutineScope()
+
+HorizontalCalendarView(
+  startDate = startDate,
+  calendarAnimator = calendarAnimator,
+)
+
+// to scroll after click on button:
+Button(onClick = {
+  coroutineScope.launch {
+    calendarAnimator.animateTo(LocalDate(1995, Month.NOVEMBER, 12))
+  }
+}) {
+  Text("Animate!")
+}
+```
+

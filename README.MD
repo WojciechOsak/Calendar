@@ -113,7 +113,15 @@ Each view get as parameter day cell composable. Thanks to that your calendar can
 <img src="readme/range.png" height="250"/>
 </details>
 
----
+# Versions
+
+
+| Compose version |   Library version    |
+|:---------------:|:--------------------:|
+|     1.5.11      | 0.0.8-compose-1.5.11 |
+|      1.6.1      |        0.0.8         |
+
+--- 
 
 # Samples:
 
