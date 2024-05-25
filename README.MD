@@ -119,7 +119,7 @@ Each view get as parameter day cell composable. Thanks to that your calendar can
 | Compose version |   Library version    |
 |:---------------:|:--------------------:|
 |     1.5.11      | 0.0.8-compose-1.5.11 |
-|      1.6.1      |        0.0.8         |
+|      1.6.1      |        0.0.9         |
 
 --- 
 

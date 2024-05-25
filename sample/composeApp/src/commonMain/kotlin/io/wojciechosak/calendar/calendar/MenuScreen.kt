@@ -34,7 +34,7 @@ class MenuScreen : Screen {
             item { ScreenButton(AnimationScreen(), "Animations") }
             item { ScreenButton(RangeSelectionScreen(), "Range selection") }
             item { ScreenButton(FullDateScreen(), "Full date selector (day/month/year)") }
-            item { Text("Lib version: 0.0.8") }
+            item { Text("Lib version: 0.0.9") }
         }
     }
 
