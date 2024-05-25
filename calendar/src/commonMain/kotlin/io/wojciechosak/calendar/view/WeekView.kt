@@ -3,6 +3,8 @@ package io.wojciechosak.calendar.view
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -93,19 +95,25 @@ fun WeekView(
         val index = it - initialPageIndex // week number
         calendarAnimator.updatePagerState(pagerState)
         firstVisibleDate(startDate.plus(index * 7, DateTimeUnit.DAY))
-        for (day in 0..6) {
-            Column(
-                verticalArrangement = Arrangement.SpaceEvenly,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                val newDate = startDate.plus(index * 7 + day, DateTimeUnit.DAY)
-                day(
-                    DayState(
-                        date = newDate,
-                        isActiveDay = isActive(newDate),
-                        enabled = true,
-                    ),
-                )
+        Row(
+            Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            for (day in 0..6) {
+                Column(
+                    verticalArrangement = Arrangement.SpaceEvenly,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    val newDate = startDate.plus(index * 7 + day, DateTimeUnit.DAY)
+                    day(
+                    	DayState(
+                    		date = newDate,
+                    		isActiveDay = isActive(newDate),
+                    		enabled = true,
+                    	),
+                    )
+                }
             }
         }
     }
