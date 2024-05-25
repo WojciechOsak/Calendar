@@ -59,7 +59,6 @@ class WeekViewScreen : NamedScreen {
                         .plus(3, DateTimeUnit.DAY)
                 CalendarDay(
                     state = state.copy(enabled = !isInNextThreeDays),
-                    modifier = Modifier.size(54.dp),
                     onClick = { selectedDay = state.date },
                 )
             }

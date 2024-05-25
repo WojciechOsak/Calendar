@@ -1,8 +1,11 @@
 package io.wojciechosak.calendar.view
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -48,74 +51,77 @@ import kotlinx.datetime.toLocalDateTime
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WeekView(
-    startDate: LocalDate =
-        Clock.System.now()
-            .toLocalDateTime(TimeZone.currentSystemDefault())
-            .toLocalDate(),
-    minDate: LocalDate = startDate.copy(day = 1).minus(3, DateTimeUnit.MONTH),
-    maxDate: LocalDate =
-        startDate.copy(day = monthLength(startDate.month, startDate.year))
-            .plus(3, DateTimeUnit.MONTH),
-    daysOffset: Int = 0,
-    showDaysBesideRange: Boolean = true,
-    calendarAnimator: CalendarAnimator = CalendarAnimator(startDate),
-    isActive: (LocalDate) -> Boolean = {
-        val today =
-            Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toLocalDate()
-        today == it
-    },
-    modifier: Modifier = Modifier,
-    firstVisibleDate: (LocalDate) -> Unit = {},
-    day: @Composable (dayState: DayState) -> Unit = { state ->
-        weekDay(state) {
-            CalendarDay(
-                state,
-                modifier = Modifier.width(58.dp),
-            )
-        }
-    },
+	startDate: LocalDate =
+		Clock.System.now()
+			.toLocalDateTime(TimeZone.currentSystemDefault())
+			.toLocalDate(),
+	minDate: LocalDate = startDate.copy(day = 1).minus(3, DateTimeUnit.MONTH),
+	maxDate: LocalDate =
+		startDate.copy(day = monthLength(startDate.month, startDate.year))
+			.plus(3, DateTimeUnit.MONTH),
+	daysOffset: Int = 0,
+	showDaysBesideRange: Boolean = true,
+	calendarAnimator: CalendarAnimator = CalendarAnimator(startDate),
+	isActive: (LocalDate) -> Boolean = {
+		val today =
+			Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toLocalDate()
+		today == it
+	},
+	modifier: Modifier = Modifier,
+	firstVisibleDate: (LocalDate) -> Unit = {},
+	day: @Composable (dayState: DayState) -> Unit = { state ->
+		weekDay(state) {
+			CalendarDay(
+				state,
+				modifier = Modifier.width(58.dp),
+			)
+		}
+	},
 ) {
-    val minIndex = if (showDaysBesideRange) 0 else minDate.daysUntil(startDate)
-    val maxIndex = if (showDaysBesideRange) MAX_PAGES else startDate.daysUntil(maxDate)
-    val initialPageIndex = if (showDaysBesideRange) INITIAL_PAGE_INDEX else minIndex + daysOffset
-    LaunchedEffect(Unit) {
-        calendarAnimator.setAnimationMode(CalendarAnimator.AnimationMode.WEEK)
-    }
-    val pagerState =
-        rememberPagerState(
-            initialPage = initialPageIndex,
-            pageCount = { minIndex + maxIndex },
-        )
-    HorizontalPager(
-        state = pagerState,
-        modifier = modifier,
-    ) {
-        val index = it - initialPageIndex // week number
-        calendarAnimator.updatePagerState(pagerState)
-        firstVisibleDate(startDate.plus(index * 7, DateTimeUnit.DAY))
-        for (day in 0..6) {
-            Column(
-                verticalArrangement = Arrangement.SpaceEvenly,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                val newDate = startDate.plus(index * 7 + day, DateTimeUnit.DAY)
-                day(
-                    DayState(
-                        date = newDate,
-                        isActiveDay = isActive(newDate),
-                        enabled = true,
-                    ),
-                )
-            }
-        }
-    }
+	val minIndex = if (showDaysBesideRange) 0 else minDate.daysUntil(startDate)
+	val maxIndex = if (showDaysBesideRange) MAX_PAGES else startDate.daysUntil(maxDate)
+	val initialPageIndex = if (showDaysBesideRange) INITIAL_PAGE_INDEX else minIndex + daysOffset
+	LaunchedEffect(Unit) {
+		calendarAnimator.setAnimationMode(CalendarAnimator.AnimationMode.WEEK)
+	}
+	val pagerState = rememberPagerState(
+		initialPage = initialPageIndex,
+		pageCount = { minIndex + maxIndex },
+	)
+	HorizontalPager(
+		state = pagerState,
+		modifier = modifier,
+	) {
+		val index = it - initialPageIndex // week number
+		calendarAnimator.updatePagerState(pagerState)
+		firstVisibleDate(startDate.plus(index * 7, DateTimeUnit.DAY))
+		Row(
+			horizontalArrangement = Arrangement.SpaceAround,
+			modifier = Modifier.fillMaxWidth()
+		) {
+			for (day in 0..6) {
+				Column(
+					horizontalAlignment = Alignment.CenterHorizontally,
+				) {
+					val newDate = startDate.plus(index * 7 + day, DateTimeUnit.DAY)
+					day(
+						DayState(
+							date = newDate,
+							isActiveDay = isActive(newDate),
+							enabled = true,
+						),
+					)
+				}
+			}
+		}
+	}
 }
 
 @Composable
 private fun weekDay(
-    state: DayState,
-    function: @Composable () -> Unit,
+	state: DayState,
+	function: @Composable () -> Unit,
 ) {
-    Text(state.date.daySimpleName(), fontSize = 12.sp, textAlign = TextAlign.Center)
-    function()
+	Text(state.date.daySimpleName(), fontSize = 12.sp, textAlign = TextAlign.Center)
+	function()
 }
