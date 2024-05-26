@@ -178,3 +178,10 @@ Button(onClick = {
 }
 ```
 
+CalendarAnimator provides also pager methods like:
+
+```kotlin
+animateToNextPage()
+animateToPreviousPage()
+scrollToPage(page: Int, pageOffsetFraction: Float = 0f)
+```
