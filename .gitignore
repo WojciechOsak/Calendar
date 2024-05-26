@@ -15,3 +15,5 @@ Pods/
 *yarn.lock
 /lib/build
 /sample/composeApp/build
+# Kotlin 2.0
+.kotlin/
