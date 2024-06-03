@@ -10,6 +10,6 @@ import io.wojciechosak.calendar.utils.Pallete.LightBlue
  * @property rangeIllustrator The range illustrator used for rendering the date range. Default is a RoundedRangeIllustrator.
  */
 data class RangeConfig(
-    val color: Color = LightBlue,
-    val rangeIllustrator: RangeIllustrator = RoundedRangeIllustrator(color),
+	val color: Color = LightBlue,
+	val rangeIllustrator: RangeIllustrator = RoundedRangeIllustrator(color),
 )

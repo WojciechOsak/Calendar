@@ -62,7 +62,7 @@ private fun DayView(
     Box {
         OutlinedButton(
             onClick = onClick,
-            modifier = modifier.aspectRatio(1f).padding(3.dp),
+            modifier = modifier.size(55.dp).aspectRatio(1f).padding(3.dp),
             contentPadding = PaddingValues(0.dp),
             border = BorderStroke(0.dp, Color.Transparent),
             colors =

@@ -14,40 +14,40 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
  * @param strokeWidth The width of the underline. Default is 10f.
  */
 class UnderlineIllustrator(
-    private val color: Color,
-    private val y: (Size) -> Float = { it.height },
-    private val strokeWidth: Float = 10f,
+	private val color: Color,
+	private val y: (Size) -> Float = { it.height },
+	private val strokeWidth: Float = 10f,
 ) : RangeIllustrator {
-    override fun drawEnd(drawScope: DrawScope) {
-        drawScope.apply {
-            drawLine(
-                color = color,
-                strokeWidth = strokeWidth,
-                start = Offset(0f, y(size)),
-                end = Offset(size.width, y(size)),
-            )
-        }
-    }
+	override fun drawEnd(drawScope: DrawScope) {
+		drawScope.apply {
+			drawLine(
+				color = color,
+				strokeWidth = strokeWidth,
+				start = Offset(0f, y(size)),
+				end = Offset(size.width, y(size)),
+			)
+		}
+	}
 
-    override fun drawStart(drawScope: DrawScope) {
-        drawScope.apply {
-            drawLine(
-                color = color,
-                strokeWidth = strokeWidth,
-                start = Offset(0f, y(size)),
-                end = Offset(size.width, y(size)),
-            )
-        }
-    }
+	override fun drawStart(drawScope: DrawScope) {
+		drawScope.apply {
+			drawLine(
+				color = color,
+				strokeWidth = strokeWidth,
+				start = Offset(0f, y(size)),
+				end = Offset(size.width, y(size)),
+			)
+		}
+	}
 
-    override fun drawMiddle(drawScope: DrawScope) {
-        drawScope.apply {
-            drawLine(
-                color = color,
-                strokeWidth = strokeWidth,
-                start = Offset(0f, y(size)),
-                end = Offset(size.width, y(size)),
-            )
-        }
-    }
+	override fun drawMiddle(drawScope: DrawScope) {
+		drawScope.apply {
+			drawLine(
+				color = color,
+				strokeWidth = strokeWidth,
+				start = Offset(0f, y(size)),
+				end = Offset(size.width, y(size)),
+			)
+		}
+	}
 }

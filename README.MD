@@ -127,6 +127,10 @@ Each view get as parameter day cell composable. Thanks to that your calendar can
 
 # Samples:
 
+You can test Web version here: [Web Demo](https://wojciechosak.github.io/Calendar/)
+It is builded sample app and distributed by Github Pages. 
+
+
 In directory sample you can find bunch of examples. You can run Android/iOS application and test it 
 yourself. Below you can find instruction how to run sample project on your computer.
 

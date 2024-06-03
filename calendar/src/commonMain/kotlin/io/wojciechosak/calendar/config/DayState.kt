@@ -12,9 +12,9 @@ import kotlinx.datetime.LocalDate
  * @property enabled Whether the day is enabled(clickable) or disabled. Default is true.
  */
 data class DayState(
-    val date: LocalDate,
-    val isActiveDay: Boolean = false,
-    val isForPreviousMonth: Boolean = false,
-    val isForNextMonth: Boolean = false,
-    val enabled: Boolean = true,
+	val date: LocalDate,
+	val isActiveDay: Boolean = false,
+	val isForPreviousMonth: Boolean = false,
+	val isForNextMonth: Boolean = false,
+	val enabled: Boolean = true,
 )

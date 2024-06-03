@@ -22,6 +22,7 @@ import io.wojciechosak.calendar.view.CalendarDay
 import io.wojciechosak.calendar.view.CalendarView
 import io.wojciechosak.calendar.view.HorizontalCalendarView
 import io.wojciechosak.calendar.view.WeekView
+import io.wojciechosak.calendar.view.WeekViewDay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
@@ -76,9 +77,8 @@ class AnimationScreen : NamedScreen {
                 calendarAnimator = weekCalendarAnimator,
             ) { state ->
                 Text(state.date.daySimpleName())
-                CalendarDay(
-                    state,
-                    modifier = Modifier.width(58.dp),
+                WeekViewDay(
+                    state = state,
                     onClick = { selectedWeekDate = state.date },
                 )
             }

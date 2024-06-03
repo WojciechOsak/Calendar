@@ -2,13 +2,15 @@ package io.wojciechosak.calendar.view
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,35 +30,35 @@ import io.wojciechosak.calendar.utils.Pallete
  */
 @Composable
 fun CalendarDay(
-    state: DayState,
-    interactionSource: MutableInteractionSource = MutableInteractionSource(),
-    onClick: () -> Unit = {},
-    modifier: Modifier = Modifier,
+	state: DayState,
+	interactionSource: MutableInteractionSource = MutableInteractionSource(),
+	onClick: () -> Unit = {},
+	modifier: Modifier = Modifier,
 ) = with(state) {
-    OutlinedButton(
-        onClick = onClick,
-        modifier = modifier,
-        shape = RoundedCornerShape(50.dp),
-        border = BorderStroke(1.dp, Color.Transparent),
-        contentPadding = PaddingValues(0.dp),
-        interactionSource = interactionSource,
-        enabled = enabled,
-        colors =
-        ButtonDefaults.outlinedButtonColors(
-            contentColor =
-            if (isForPreviousMonth || isForNextMonth) {
-                Color.LightGray
-            } else {
-                if (isActiveDay) Pallete.LightGreen else Pallete.LightBlue
-            },
-        ),
-    ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                "${date.dayOfMonth}",
-                fontSize = 20.sp,
-                textAlign = TextAlign.Center,
-            )
-        }
-    }
+	Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
+		OutlinedButton(
+			onClick = onClick,
+			modifier = modifier,
+			shape = RoundedCornerShape(50.dp),
+			border = BorderStroke(1.dp, Color.Transparent),
+			contentPadding = PaddingValues(0.dp),
+			interactionSource = remember { interactionSource },
+			enabled = enabled,
+			colors =
+			ButtonDefaults.outlinedButtonColors(
+				contentColor =
+				if (isForPreviousMonth || isForNextMonth) {
+					Color.LightGray
+				} else {
+					if (isActiveDay) Pallete.LightGreen else Pallete.LightBlue
+				},
+			),
+		) {
+			Text(
+				"${date.dayOfMonth}",
+				fontSize = 20.sp,
+				textAlign = TextAlign.Center,
+			)
+		}
+	}
 }

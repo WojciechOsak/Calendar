@@ -37,127 +37,130 @@ import kotlinx.datetime.LocalDate
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun YearPicker(
-    columns: Int = 4,
-    rows: Int = 3,
-    startDate: LocalDate = LocalDate.today(),
-    mode: YearPickerMode = YearPickerMode.HORIZONTAL,
-    yearOffset: Int = 0,
-    modifier: Modifier = Modifier,
-    pageSize: PageSize = PageSize.Fill,
-    onYearSelected: (Int) -> Unit = {},
-    yearView: @Composable (year: Int) -> Unit = { year ->
-        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-            Text(year.toString(), modifier = Modifier.padding(35.dp))
-        }
-    },
+	columns: Int = 4,
+	rows: Int = 3,
+	startDate: LocalDate = LocalDate.today(),
+	mode: YearPickerMode = YearPickerMode.HORIZONTAL,
+	yearOffset: Int = 0,
+	modifier: Modifier = Modifier,
+	pageSize: PageSize = PageSize.Fill,
+	onYearSelected: (Int) -> Unit = {},
+	yearView: @Composable (year: Int) -> Unit = { year ->
+		Column(
+			horizontalAlignment = Alignment.CenterHorizontally,
+			verticalArrangement = Arrangement.Center
+		) {
+			Text(year.toString(), modifier = Modifier.padding(35.dp))
+		}
+	},
 ) {
-    val pagerState =
-        rememberPagerState(
-            initialPage = CalendarConstants.INITIAL_PAGE_INDEX,
-            pageCount = { MAX_PAGES },
-        )
-    when (mode) {
-        YearPickerMode.VERTICAL -> {
-            VerticalPager(
-                state = pagerState,
-                modifier = modifier,
-                pageSize = pageSize,
-            ) { page ->
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = modifier.fillMaxWidth(),
-                ) {
-                    VerticalPage(
-                        page = page,
-                        startDate = startDate,
-                        columns = columns,
-                        rows = rows,
-                        onYearSelected = onYearSelected,
-                        yearView = yearView,
-                        yearOffset = yearOffset,
-                    )
-                }
-            }
-        }
+	val pagerState =
+		rememberPagerState(
+			initialPage = CalendarConstants.INITIAL_PAGE_INDEX,
+			pageCount = { MAX_PAGES },
+		)
+	when (mode) {
+		YearPickerMode.VERTICAL -> {
+			VerticalPager(
+				state = pagerState,
+				modifier = modifier,
+				pageSize = pageSize,
+			) { page ->
+				Row(
+					horizontalArrangement = Arrangement.Center,
+					verticalAlignment = Alignment.CenterVertically,
+					modifier = modifier.fillMaxWidth(),
+				) {
+					VerticalPage(
+						page = page,
+						startDate = startDate,
+						columns = columns,
+						rows = rows,
+						onYearSelected = onYearSelected,
+						yearView = yearView,
+						yearOffset = yearOffset,
+					)
+				}
+			}
+		}
 
-        YearPickerMode.HORIZONTAL -> {
-            HorizontalPager(
-                state = pagerState,
-                modifier = modifier,
-                verticalAlignment = Alignment.CenterVertically,
-                pageSize = pageSize,
-            ) { page ->
-                Column(
-                    Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    HorizontalPage(
-                        page = page,
-                        startDate = startDate,
-                        columns = columns,
-                        rows = rows,
-                        onYearSelected = onYearSelected,
-                        yearView = yearView,
-                        yearOffset = yearOffset,
-                    )
-                }
-            }
-        }
-    }
+		YearPickerMode.HORIZONTAL -> {
+			HorizontalPager(
+				state = pagerState,
+				modifier = modifier,
+				verticalAlignment = Alignment.CenterVertically,
+				pageSize = pageSize,
+			) { page ->
+				Column(
+					Modifier.fillMaxWidth(),
+					horizontalAlignment = Alignment.CenterHorizontally,
+				) {
+					HorizontalPage(
+						page = page,
+						startDate = startDate,
+						columns = columns,
+						rows = rows,
+						onYearSelected = onYearSelected,
+						yearView = yearView,
+						yearOffset = yearOffset,
+					)
+				}
+			}
+		}
+	}
 }
 
 @Composable
 private fun VerticalPage(
-    columns: Int,
-    rows: Int,
-    startDate: LocalDate,
-    page: Int,
-    yearOffset: Int,
-    onYearSelected: (Int) -> Unit = {},
-    yearView: @Composable (Int) -> Unit,
+	columns: Int,
+	rows: Int,
+	startDate: LocalDate,
+	page: Int,
+	yearOffset: Int,
+	onYearSelected: (Int) -> Unit = {},
+	yearView: @Composable (Int) -> Unit,
 ) {
-    for (column in 0..<columns) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            for (row in 0..<rows) {
-                val yearValue =
-                    startDate.year + row * columns + column + (page - CalendarConstants.INITIAL_PAGE_INDEX) * rows * columns + yearOffset
+	for (column in 0..<columns) {
+		Column(horizontalAlignment = Alignment.CenterHorizontally) {
+			for (row in 0..<rows) {
+				val yearValue =
+					startDate.year + row * columns + column + (page - CalendarConstants.INITIAL_PAGE_INDEX) * rows * columns + yearOffset
 
-                Row(
-                    modifier = Modifier.passTouchGesture { onYearSelected(yearValue) },
-                    horizontalArrangement = Arrangement.Center,
-                ) {
-                    yearView(yearValue)
-                }
-            }
-        }
-    }
+				Row(
+					modifier = Modifier.passTouchGesture { onYearSelected(yearValue) },
+					horizontalArrangement = Arrangement.Center,
+				) {
+					yearView(yearValue)
+				}
+			}
+		}
+	}
 }
 
 @Composable
 private fun HorizontalPage(
-    columns: Int,
-    rows: Int,
-    startDate: LocalDate,
-    page: Int,
-    yearOffset: Int,
-    onYearSelected: (Int) -> Unit = {},
-    yearView: @Composable (Int) -> Unit,
+	columns: Int,
+	rows: Int,
+	startDate: LocalDate,
+	page: Int,
+	yearOffset: Int,
+	onYearSelected: (Int) -> Unit = {},
+	yearView: @Composable (Int) -> Unit,
 ) {
-    for (column in 0..<rows) {
-        Row(Modifier) {
-            for (row in 0..<columns) {
-                val yearValue =
-                    startDate.year + column * rows + row + (page - CalendarConstants.INITIAL_PAGE_INDEX) * rows * columns + yearOffset
-                Column(Modifier.passTouchGesture { onYearSelected(yearValue) }) {
-                    yearView(yearValue)
-                }
-            }
-        }
-    }
+	for (column in 0..<rows) {
+		Row(Modifier) {
+			for (row in 0..<columns) {
+				val yearValue =
+					startDate.year + column * rows + row + (page - CalendarConstants.INITIAL_PAGE_INDEX) * rows * columns + yearOffset
+				Column(Modifier.passTouchGesture { onYearSelected(yearValue) }) {
+					yearView(yearValue)
+				}
+			}
+		}
+	}
 }
 
 enum class YearPickerMode {
-    VERTICAL,
-    HORIZONTAL,
+	VERTICAL,
+	HORIZONTAL,
 }

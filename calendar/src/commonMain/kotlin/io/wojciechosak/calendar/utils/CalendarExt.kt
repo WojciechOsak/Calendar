@@ -15,10 +15,10 @@ import kotlinx.datetime.toLocalDateTime
  * @return true if the year is a leap year, false otherwise.
  */
 fun isLeapYear(year: Int): Boolean = try {
-    LocalDate(year, 2, 29)
-    true
+	LocalDate(year, 2, 29)
+	true
 } catch (exception: IllegalArgumentException) {
-    false
+	false
 }
 
 /**
@@ -29,27 +29,27 @@ fun isLeapYear(year: Int): Boolean = try {
  * @return The length of the month in days.
  */
 fun monthLength(
-    month: Month,
-    year: Int,
+	month: Month,
+	year: Int,
 ): Int {
-    val isLeapYear = isLeapYear(year)
-    return when (month) {
-        Month.FEBRUARY -> if (isLeapYear) 29 else 28
-        Month.APRIL, Month.JUNE, Month.SEPTEMBER, Month.NOVEMBER -> 30
-        else -> 31
-    }
+	val isLeapYear = isLeapYear(year)
+	return when (month) {
+		Month.FEBRUARY -> if (isLeapYear) 29 else 28
+		Month.APRIL, Month.JUNE, Month.SEPTEMBER, Month.NOVEMBER -> 30
+		else -> 31
+	}
 }
 
 internal fun LocalDateTime.toLocalDate(): LocalDate = LocalDate(year, month, dayOfMonth)
 
 fun LocalDate.copy(
-    year: Int = this.year,
-    month: Month = this.month,
-    day: Int = this.dayOfMonth,
+	year: Int = this.year,
+	month: Month = this.month,
+	day: Int = this.dayOfMonth,
 ): LocalDate = try {
-    LocalDate(year, month, day)
+	LocalDate(year, month, day)
 } catch (e: IllegalArgumentException) {
-    LocalDate(year, month, monthLength(month, year))
+	LocalDate(year, month, monthLength(month, year))
 }
 
 /**
@@ -58,8 +58,8 @@ fun LocalDate.copy(
  * @return The current date.
  */
 fun LocalDate.Companion.today(): LocalDate = Clock.System.now()
-    .toLocalDateTime(TimeZone.currentSystemDefault())
-    .toLocalDate()
+	.toLocalDateTime(TimeZone.currentSystemDefault())
+	.toLocalDate()
 
 fun LocalDate.toMonthYear(): MonthYear = MonthYear(this.month, this.year)
 

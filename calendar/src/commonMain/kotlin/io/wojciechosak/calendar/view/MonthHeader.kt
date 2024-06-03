@@ -16,29 +16,29 @@ import kotlinx.datetime.Month
  */
 @Composable
 fun MonthHeader(
-    month: Month,
-    year: Int,
+	month: Month,
+	year: Int,
 ) {
-    val months =
-        listOf(
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-        )
-    Text(
-        "${months.getOrNull(month.ordinal)} $year",
-        modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp, top = 0.dp),
-        textAlign = TextAlign.Center,
-        fontWeight = FontWeight.ExtraLight,
-        fontSize = 16.sp,
-    )
+	val months =
+		listOf(
+			"January",
+			"February",
+			"March",
+			"April",
+			"May",
+			"June",
+			"July",
+			"August",
+			"September",
+			"October",
+			"November",
+			"December",
+		)
+	Text(
+		"${months.getOrNull(month.ordinal)} $year",
+		modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp, top = 0.dp),
+		textAlign = TextAlign.Center,
+		fontWeight = FontWeight.ExtraLight,
+		fontSize = 16.sp,
+	)
 }

@@ -29,31 +29,31 @@ import kotlinx.datetime.LocalDate
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun VerticalCalendarView(
-    startDate: LocalDate,
-    calendarAnimator: CalendarAnimator = CalendarAnimator(startDate),
-    modifier: Modifier = Modifier,
-    pageSize: PageSize = PageSize.Fill,
-    contentPadding: PaddingValues = PaddingValues(0.dp),
-    beyondBoundsPageCount: Int = 0,
-    calendarView: @Composable (monthOffset: Int) -> Unit,
+	startDate: LocalDate,
+	calendarAnimator: CalendarAnimator = CalendarAnimator(startDate),
+	modifier: Modifier = Modifier,
+	pageSize: PageSize = PageSize.Fill,
+	contentPadding: PaddingValues = PaddingValues(0.dp),
+	beyondBoundsPageCount: Int = 0,
+	calendarView: @Composable (monthOffset: Int) -> Unit,
 ) {
-    val pagerState =
-        rememberPagerState(
-            initialPage = INITIAL_PAGE_INDEX,
-            pageCount = { MAX_PAGES },
-        )
-    LaunchedEffect(pagerState) {
-        calendarAnimator.setAnimationMode(CalendarAnimator.AnimationMode.MONTH)
-        calendarAnimator.updatePagerState(pagerState)
-    }
-    VerticalPager(
-        state = pagerState,
-        modifier = modifier.fillMaxWidth(),
-        pageSize = pageSize,
-        beyondBoundsPageCount = beyondBoundsPageCount,
-        contentPadding = contentPadding,
-    ) {
-        val index = it - INITIAL_PAGE_INDEX
-        calendarView(index)
-    }
+	val pagerState =
+		rememberPagerState(
+			initialPage = INITIAL_PAGE_INDEX,
+			pageCount = { MAX_PAGES },
+		)
+	LaunchedEffect(pagerState) {
+		calendarAnimator.setAnimationMode(CalendarAnimator.AnimationMode.MONTH)
+		calendarAnimator.updatePagerState(pagerState)
+	}
+	VerticalPager(
+		state = pagerState,
+		modifier = modifier.fillMaxWidth(),
+		pageSize = pageSize,
+		beyondBoundsPageCount = beyondBoundsPageCount,
+		contentPadding = contentPadding,
+	) {
+		val index = it - INITIAL_PAGE_INDEX
+		calendarView(index)
+	}
 }

@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.wojciechosak.calendar.utils.daySimpleName
 import io.wojciechosak.calendar.utils.today
-import io.wojciechosak.calendar.view.CalendarDay
+import io.wojciechosak.calendar.view.WeekViewDay
 import io.wojciechosak.calendar.view.WeekView
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
@@ -35,9 +35,9 @@ class WeekViewScreen : NamedScreen {
             WeekView { state ->
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(state.date.daySimpleName())
-                    CalendarDay(
-                        state,
-                        onClick = { },
+					WeekViewDay(
+						modifier = Modifier,
+                        state= state,
                     )
                 }
             }
@@ -57,7 +57,7 @@ class WeekViewScreen : NamedScreen {
                         .today()
                         .plus(1, DateTimeUnit.DAY)..LocalDate.today()
                         .plus(3, DateTimeUnit.DAY)
-                CalendarDay(
+				WeekViewDay(
                     state = state.copy(enabled = !isInNextThreeDays),
                     modifier = Modifier.size(54.dp),
                     onClick = { selectedDay = state.date },

@@ -32,43 +32,43 @@ import kotlinx.datetime.LocalDate
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HorizontalCalendarView(
-    startDate: LocalDate,
-    pagerState: PagerState = rememberPagerState(
-        initialPage = INITIAL_PAGE_INDEX,
-        pageCount = { MAX_PAGES },
-    ),
-    modifier: Modifier = Modifier,
-    pageSize: PageSize = PageSize.Fill,
-    beyondBoundsPageCount: Int = 0,
-    contentPadding: PaddingValues = PaddingValues(0.dp),
-    calendarAnimator: CalendarAnimator = CalendarAnimator(startDate),
-    calendarView: @Composable (monthOffset: Int) -> Unit = {
-        CalendarView(
-            day = { dayState ->
-                CalendarDay(
-                    state = dayState,
-                    onClick = { },
-                )
-            },
-            config = rememberCalendarState(
-                startDate = startDate,
-                monthOffset = it,
-            ),
-        )
-    },
+	startDate: LocalDate,
+	pagerState: PagerState = rememberPagerState(
+		initialPage = INITIAL_PAGE_INDEX,
+		pageCount = { MAX_PAGES },
+	),
+	modifier: Modifier = Modifier,
+	pageSize: PageSize = PageSize.Fill,
+	beyondBoundsPageCount: Int = 0,
+	contentPadding: PaddingValues = PaddingValues(0.dp),
+	calendarAnimator: CalendarAnimator = CalendarAnimator(startDate),
+	calendarView: @Composable (monthOffset: Int) -> Unit = {
+		CalendarView(
+			day = { dayState ->
+				CalendarDay(
+					state = dayState,
+					onClick = { },
+				)
+			},
+			config = rememberCalendarState(
+				startDate = startDate,
+				monthOffset = it,
+			),
+		)
+	},
 ) {
-    HorizontalPager(
-        state = pagerState,
-        modifier = modifier,
-        pageSize = pageSize,
-        beyondBoundsPageCount = beyondBoundsPageCount,
-        contentPadding = contentPadding,
-    ) {
-        val index = it - INITIAL_PAGE_INDEX
-        calendarAnimator.updatePagerState(pagerState)
-        LaunchedEffect(Unit) {
-            calendarAnimator.setAnimationMode(CalendarAnimator.AnimationMode.MONTH)
-        }
-        Column { calendarView(index) }
-    }
+	HorizontalPager(
+		state = pagerState,
+		modifier = modifier,
+		pageSize = pageSize,
+		beyondBoundsPageCount = beyondBoundsPageCount,
+		contentPadding = contentPadding,
+	) {
+		val index = it - INITIAL_PAGE_INDEX
+		calendarAnimator.updatePagerState(pagerState)
+		LaunchedEffect(Unit) {
+			calendarAnimator.setAnimationMode(CalendarAnimator.AnimationMode.MONTH)
+		}
+		Column { calendarView(index) }
+	}
 }

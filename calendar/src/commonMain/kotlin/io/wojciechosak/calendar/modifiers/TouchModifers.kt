@@ -17,11 +17,11 @@ import androidx.compose.ui.input.pointer.pointerInput
  */
 @Composable
 fun Modifier.passTouchGesture(onTouchEvent: () -> Unit): Modifier = composed {
-    pointerInput(Unit) {
-        awaitEachGesture {
-            awaitFirstDown(requireUnconsumed = false)
-            val change = waitForUpOrCancellation(pass = PointerEventPass.Initial)
-            change?.let { onTouchEvent() }
-        }
-    }
+	pointerInput(Unit) {
+		awaitEachGesture {
+			awaitFirstDown(requireUnconsumed = false)
+			val change = waitForUpOrCancellation(pass = PointerEventPass.Initial)
+			change?.let { onTouchEvent() }
+		}
+	}
 }

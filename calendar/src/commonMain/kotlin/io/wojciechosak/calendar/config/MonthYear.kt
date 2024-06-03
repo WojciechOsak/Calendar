@@ -17,6 +17,6 @@ data class MonthYear(val month: Month, val year: Int)
 fun MonthYear.toLocalDate() = LocalDate(year, month, 1)
 
 fun MonthYear.monthOffset(monthOffset: Int) = this
-    .toLocalDate()
-    .plus(monthOffset, DateTimeUnit.MONTH)
-    .toMonthYear()
+	.toLocalDate()
+	.plus(monthOffset, DateTimeUnit.MONTH)
+	.toMonthYear()
