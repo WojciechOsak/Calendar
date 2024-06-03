@@ -81,7 +81,14 @@ internal fun App() {
 								.width(
 									when (getPlatformType()) {
 										PlatformType.MOBILE -> getScreenSizeInfo().widthDp
-										PlatformType.WEB -> getScreenSizeInfo().widthDp / 2
+										PlatformType.WEB -> {
+											val isShownOnMobile = getScreenSizeInfo().widthPx < 1200
+											if(isShownOnMobile) {
+												getScreenSizeInfo().widthDp
+											} else {
+												getScreenSizeInfo().widthDp / 2
+											}
+										}
 										PlatformType.DESKTOP -> getScreenSizeInfo().widthDp / 2
 									}
 								) // Set the width to half of the screen width
