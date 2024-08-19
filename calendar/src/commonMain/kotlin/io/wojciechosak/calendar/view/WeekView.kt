@@ -98,7 +98,7 @@ fun WeekView(
 	) {
 		val index = it - initialPageIndex // week number
 		calendarAnimator.updatePagerState(pagerState)
-		firstVisibleDate(startDate.plus(index * 7, DateTimeUnit.DAY))
+		firstVisibleDate(startDate.plus((pagerState.currentPage - initialPageIndex) * 7, DateTimeUnit.DAY))
 		Row(
 			Modifier.fillMaxWidth(),
 			verticalAlignment = Alignment.CenterVertically,
