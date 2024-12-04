@@ -39,7 +39,7 @@ fun HorizontalCalendarView(
 	),
 	modifier: Modifier = Modifier,
 	pageSize: PageSize = PageSize.Fill,
-	beyondBoundsPageCount: Int = 0,
+	beyondViewportPageCount: Int = 0,
 	contentPadding: PaddingValues = PaddingValues(0.dp),
 	calendarAnimator: CalendarAnimator = CalendarAnimator(startDate),
 	calendarView: @Composable (monthOffset: Int) -> Unit = {
@@ -61,7 +61,7 @@ fun HorizontalCalendarView(
 		state = pagerState,
 		modifier = modifier,
 		pageSize = pageSize,
-		beyondBoundsPageCount = beyondBoundsPageCount,
+		beyondViewportPageCount = beyondViewportPageCount,
 		contentPadding = contentPadding,
 	) {
 		val index = it - INITIAL_PAGE_INDEX

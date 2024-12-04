@@ -11,8 +11,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -38,7 +38,7 @@ internal fun App() {
 			Scaffold(
 				topBar = {
 					val navigator = LocalNavigator.current
-					SmallTopAppBar(
+					TopAppBar(
 						colors =
 						TopAppBarDefaults.topAppBarColors(
 							containerColor = MaterialTheme.colorScheme.primary,
