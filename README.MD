@@ -125,6 +125,7 @@ Each view get as parameter day cell composable. Thanks to that your calendar can
 |      1.6.1      |        0.0.9         |
 |     1.6.10      |        1.0.0         |
 |     1.6.10      |        1.0.1         |
+|      1.7.0      |        1.0.2         |
 
 --- 
 
