@@ -20,9 +20,9 @@ mavenPublishing {
 		url.set("https://github.com/wojciechosak/calendar/")
 		licenses {
 			license {
-				name.set("GPL-3.0 License")
-				url.set("https://www.gnu.org/licenses/gpl-3.0.en.html")
-				distribution.set("https://www.gnu.org/licenses/gpl-3.0.en.html")
+				name.set("Apache-2.0 License")
+				url.set("https://www.apache.org/licenses/LICENSE-2.0")
+				distribution.set("https://www.apache.org/licenses/LICENSE-2.0")
 			}
 		}
 		developers {
