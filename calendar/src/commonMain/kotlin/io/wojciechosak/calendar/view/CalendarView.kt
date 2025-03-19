@@ -205,7 +205,7 @@ private fun selectDate(
 		is SelectionMode.Multiply -> {
 			result.add(0, date)
 			if (result.size > mode.bufferSize) {
-				result.removeLast()
+				result.removeAt(result.lastIndex)
 			}
 		}
 
