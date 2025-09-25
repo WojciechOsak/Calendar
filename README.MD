@@ -1,3 +1,6 @@
+Thank you very much for contribution and support, this library is no more maitained. 
+You can use https://github.com/kizitonwose/Calendar instead, they start to support KMP too ! :) 
+
 # Compose Multiplatform Calendar
 
 <div style="text-align:center">
