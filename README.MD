@@ -1,5 +1,5 @@
-Thank you very much for contribution and support, this library is no more maitained. 
-You can use https://github.com/kizitonwose/Calendar instead, they start to support KMP too ! :) 
+Thank you for your contributions and support. This library is no longer maintained. 
+You can use kizitonwose/Calendar instead — it now supports Kotlin Multiplatform as well.
 
 # Compose Multiplatform Calendar
 
