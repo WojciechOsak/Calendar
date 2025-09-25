@@ -1,5 +1,5 @@
 Thank you for your contributions and support. This library is no longer maintained. 
-You can use kizitonwose/Calendar instead — it now supports Kotlin Multiplatform as well.
+You can use [kizitonwose/Calendar](https://github.com/kizitonwose/Calendar) instead — it now supports Kotlin Multiplatform as well.
 
 # Compose Multiplatform Calendar
 
